@@ -4,30 +4,26 @@
     </style>
 @endsection
 @section('content')
-    <h3>※ 회화리스트</h3>
+    <h3>※ 회화리스트 -> {{ \App\Category::find($category_id)->name }}</h3>
     <hr>
     <table>
         <thead>
         <tr>
             <th>일련번호</th>
-            <th>난이도</th>
             <th>이름</th>
-            <th>내용</th>
             <th>이미지여부</th>
             <th>삭제</th>
             <th>서브메뉴</th>
         </tr>
         </thead>
         <tbody>
-        @forelse($categories as $category)
+        @forelse($lists as $list)
             <tr>
-                <td>{{ $category->id }}</td>
-                <td>{{ $category->level }}</td>
-                <td><a class="name" href="{{ route('category.edit', $category->id) }}">{{ $category->name }}</a></td>
-                <td>{{ $category->description }}</td>
-                <td>{{ isset($category->image) ? 'O' : 'X' }}</td>
-                <td><a class="delete" onclick="deleteConversation({{ $category->id }})">삭제</a></td>
-                <td class="submenu"><a href="{{ route('list.index', $category->id) }}">서브메뉴</a></td>
+                <td>{{ $list->id }}</td>
+                <td><a class="name" href="{{ route('list.edit', [$category_id , $list->id]) }}">{{ $list->name }}</a></td>
+                <td>{{ isset($list->image) ? 'O' : 'X' }}</td>
+                <td><a class="delete" onclick="deleteConversation({{ $list->id }})">삭제</a></td>
+                <td class="submenu"><a href="#">서브메뉴</a></td>
             </tr>
         @empty
             <tr>
@@ -49,10 +45,10 @@
             if(confirm('글을 삭제합니다.')) {
                 $.ajax({
                     type: 'DELETE',
-                    url: 'conversation/' + id
+                    url: "{{ $category_id }}/" + id
                 }).then(function(res) {
                     console.log(res);
-                    // window.location.href = 'conversation';
+                    location.href = '/admin/conversation/' + '{{ $category_id }}'
                 })
             }
         }

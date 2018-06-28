@@ -32,23 +32,25 @@
             onclick="location.href='/admin/basic';">
             기초정보
         </div>
-        <div class="grid-item  userinfo-selector {{ $_SERVER['REQUEST_URI'] === '/admin/user' ? 'active' : ''}}" style="-ms-grid-column: 3"
+        <div class="grid-item  user-selector {{ $_SERVER['REQUEST_URI'] === '/admin/user' ? 'active' : ''}}" style="-ms-grid-column: 3"
              onclick="location.href='/admin/user';">
             회원관리
         </div>
-        <div class="grid-item developmentinfo-selector {{ $_SERVER['REQUEST_URI'] === '/admin/customer' ? 'active' : '' }}"
+        <div class="grid-item customer-selector {{ $_SERVER['REQUEST_URI'] === '/admin/customer' ? 'active' : '' }}"
              onclick="location.href='/admin/customer';" style="-ms-grid-column: 5">
             고객센터
         </div>
-        <div class="grid-item  judicialinfo-selector {{ $_SERVER['REQUEST_URI'] === '/admin/category' ? 'active' : '' }}"
-             onclick="location.href='/admin/category';" style="-ms-grid-column: 7">
+        <div class="grid-item  conversation-selector {{ preg_match('/admin\/conversation/', $_SERVER['REQUEST_URI']) ||
+        $_SERVER['REQUEST_URI'] === '/admin/list'
+        ? 'active' : '' }}"
+             onclick="location.href='/admin/conversation';" style="-ms-grid-column: 7">
             회화
         </div>
-        <div class="grid-item  noticeinfo-selector {{ $_SERVER['REQUEST_URI'] === '/admin/contents' ? 'active' : '' }}"
+        <div class="grid-item  contents-selector {{ $_SERVER['REQUEST_URI'] === '/admin/contents' ? 'active' : '' }}"
              onclick="location.href='/admin/contents';" style="-ms-grid-column: 9">
             콘텐츠
         </div>
-        <div class="grid-item  libraryinfo-selector {{ $_SERVER['REQUEST_URI'] === '/admin/edit' ? 'active' : '' }}"
+        <div class="grid-item  edit-selector {{ $_SERVER['REQUEST_URI'] === '/admin/edit' ? 'active' : '' }}"
              onclick="location.href='/admin/edit';" style="-ms-grid-column: 11">
             첨삭
         </div>
@@ -56,17 +58,17 @@
 
     <div class="navlayout">
         <div class="grid-item">
-            @component('components.admin.basicinfo')
+            @component('Components.admin.basicinfo')
             @endcomponent
-            @component('components.admin.edit')
+            @component('Components.admin.edit')
             @endcomponent
-            @component('components.admin.customer')
+            @component('Components.admin.customer')
             @endcomponent
-            @component('components.admin.conversation')
+            @component('Components.admin.conversation')
             @endcomponent
-            @component('components.admin.contents')
+            @component('Components.admin.contents')
             @endcomponent
-            @component('components.admin.user')
+            @component('Components.admin.user')
             @endcomponent
         </div>
         <div class="grid-item">

@@ -15,9 +15,9 @@
     </style>
 @endsection
 @section('content')
-    <h3>※ 회화리스트 -> 등록</h3>
+    <h3>※ 회화등록 -> </h3>
     <hr>
-    <form method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('list.store', $category_id) }}" enctype="multipart/form-data">
         {!! csrf_field() !!}
         <table>
             <tr>
@@ -27,20 +27,6 @@
                     @if ($errors->has('name'))
                         <div class="help-block">
                             {{ $errors->first('name') }}
-                        </div>
-                    @endif
-                </td>
-            </tr>
-            <tr>
-                <td>난이도</td>
-                <td class="td-input">
-                    <label for="level-easy">초급</label>
-                    <input id="level-easy" name="level" type="radio" value="easy" checked>
-                    <label for="level-hard">중급</label>
-                    <input id="level-hard" name="level" type="radio" value="hard">
-                    @if ($errors->has('level'))
-                        <div class="help-block">
-                            {{ $errors->first('level') }}
                         </div>
                     @endif
                 </td>
@@ -56,22 +42,11 @@
                     @endif
                 </td>
             </tr>
-            <tr>
-                <td><label for="description">내용</label></td>
-                <td class="td-input">
-                    <textarea id="description" name="description" class="description" rows="10">{{ old('description') }}</textarea>
-                    @if ($errors->has('description'))
-                        <div class="help-block">
-                            {{ $errors->first('description') }}
-                        </div>
-                    @endif
-                </td>
-            </tr>
         </table>
         <hr style="visibility: hidden;">
         <div class="button-wrapper">
             <button type="submit">확인</button>
-            <button type="button" onclick="location.href = '/admin/conversation'">취소</button>
+            <button type="button" onclick="location.href = '/admin/conversation/' + '{{ $category_id }}'">취소</button>
         </div>
     </form>
 @endsection

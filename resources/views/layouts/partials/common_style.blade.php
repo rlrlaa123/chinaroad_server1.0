@@ -39,6 +39,10 @@
         cursor: pointer;
     }
 
+    .delete:hover {
+        text-decoration: underline;
+    }
+
     .image-name {
         font-weight: bold;
     }
@@ -51,6 +55,10 @@
     .submenu {
         font-weight: bold;
         cursor: pointer;
+    }
+
+    .submenu:hover {
+        text-decoration: underline;
     }
 
     a {

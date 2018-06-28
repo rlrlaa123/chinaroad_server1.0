@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Lists;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Validator;
 
 class ListController extends Controller
 {
@@ -11,9 +14,12 @@ class ListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $lists = Lists::where('category_id', $id)->get();
+        $category_id = $id;
+
+        return view('List.index', compact('category_id', 'lists'));
     }
 
     /**
@@ -21,9 +27,10 @@ class ListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $category_id = $id;
+        return view('List.create', compact('category_id'));
     }
 
     /**
@@ -32,9 +39,46 @@ class ListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'image' => 'required',
+        ]);
+
+        $validator->after(function () {
+        });
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        if ($request->hasFile('image')) {
+            if (!file_exists('images')) {
+                File::makeDirectory('images');
+                if(!file_exists('images/lists')) {
+                    File::makeDirectory('images/lists');
+                }
+            }
+
+            $list = $request->file('image');
+            $list_name = 'list' . time() . '.' . $list->getClientOriginalExtension();
+            $destinationPath_list = public_path('images/lists/');
+            $list->move($destinationPath_list, $list_name);
+        }
+
+        $list = new Lists;
+
+        $list->name = $request->name;
+        $list->category_id = $id;
+        if($request->has('image')) {
+            $list->image = 'images/lists/' . $list_name;
+        }
+        $list->save();
+
+        return redirect('admin/conversation/' . $id);
     }
 
     /**
@@ -54,9 +98,11 @@ class ListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($category_id, $id)
     {
-        //
+        $list = Lists::find($id);
+
+        return view('List.edit', compact('category_id', 'list'));
     }
 
     /**
@@ -66,9 +112,38 @@ class ListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $category_id, $id)
     {
-        //
+        if ($request->hasFile('image')) {
+            if (!file_exists('images')) {
+                File::makeDirectory('images');
+                if(!file_exists('images/lists')) {
+                    File::makeDirectory('images/lists');
+                }
+            }
+            $list = Lists::find($id);
+
+            if($list->image != null) {
+                File::delete($list->image);
+            }
+
+            $list = $request->file('image');
+            $list_name = 'list' . time() . '.' . $list->getClientOriginalExtension();
+            $destinationPath_list = public_path('images/lists/');
+            $list->move($destinationPath_list, $list_name);
+        }
+
+        Lists::where('id', $id)->update([
+            'name' => $request->name,
+        ]);
+
+        if($request->has('image')) {
+            Lists::where('id', $id)->update([
+                'image' => 'images/lists/' . $list_name,
+            ]);
+        }
+
+        return redirect('admin/conversation/' . $category_id);
     }
 
     /**
@@ -77,8 +152,14 @@ class ListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($category_id, $id)
     {
-        //
+        $list = Lists::find($id);
+
+        File::delete($list->image);
+
+        $list->delete();
+
+        return response('success', 200);
     }
 }

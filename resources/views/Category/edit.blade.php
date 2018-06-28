@@ -15,18 +15,19 @@
     </style>
 @endsection
 @section('content')
-    <h3>※ 회화리스트 -> 등록</h3>
+    <h3>※ 회화리스트 -> 수정</h3>
     <hr>
-    <form method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('category.update', $category->id) }}" enctype="multipart/form-data">
+        {!! method_field('PUT') !!}
         {!! csrf_field() !!}
         <table>
             <tr>
                 <td><label for="name">제목</label></td>
                 <td class="td-input">
-                    <input id="name" name="name" type="text" value="{{ old('name') }}">
+                    <input id="name" name="name" type="text" value="{{ old('name', $category->name) }}">
                     @if ($errors->has('name'))
                         <div class="help-block">
-                            {{ $errors->first('name') }}
+                            {{ $errors->first('title') }}
                         </div>
                     @endif
                 </td>
@@ -35,9 +36,9 @@
                 <td>난이도</td>
                 <td class="td-input">
                     <label for="level-easy">초급</label>
-                    <input id="level-easy" name="level" type="radio" value="easy" checked>
+                    <input id="level-easy" name="level" type="radio" value="easy" @if($category->level == 'easy') checked @endif>
                     <label for="level-hard">중급</label>
-                    <input id="level-hard" name="level" type="radio" value="hard">
+                    <input id="level-hard" name="level" type="radio" value="hard" @if($category->level == 'hard') checked @endif>
                     @if ($errors->has('level'))
                         <div class="help-block">
                             {{ $errors->first('level') }}
@@ -48,7 +49,8 @@
             <tr>
                 <td><label for="image">회화사진</label></td>
                 <td class="td-input">
-                    <input id="image" name="image" type="file" accept='image/*' value="{{ old('image') }}">
+                    <input id="image" name="image" type="file" accept='image/*' value="{{ old('image', $category->image) }}">
+                    <a class="image-name" href="{{ url($category->image) }}">[ {{ substr($category->image, 26) }} ]</a>
                     @if ($errors->has('image'))
                         <div class="help-block">
                             {{ $errors->first('image') }}
@@ -59,7 +61,7 @@
             <tr>
                 <td><label for="description">내용</label></td>
                 <td class="td-input">
-                    <textarea id="description" name="description" class="description" rows="10">{{ old('description') }}</textarea>
+                    <textarea id="description" name="description" class="description" rows="10">{{ old('description', $category->description) }}</textarea>
                     @if ($errors->has('description'))
                         <div class="help-block">
                             {{ $errors->first('description') }}
