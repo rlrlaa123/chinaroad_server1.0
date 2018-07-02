@@ -4,30 +4,28 @@
     </style>
 @endsection
 @section('content')
-    <h3>※ 회화리스트</h3>
+    <h3>※ 회화리스트 -> {{ \App\Category::find($category_id)->name }}</h3>
     <hr>
     <table>
         <thead>
         <tr>
             <th>일련번호</th>
-            <th>난이도</th>
-            <th>제목</th>
-            <th>내용</th>
-            <th>이미지여부</th>
+            <th>이름</th>
+            <th>문장</th>
+            <th>이미지</th>
+            <th>동영상</th>
             <th>삭제</th>
-            <th>서브메뉴</th>
         </tr>
         </thead>
         <tbody>
         @forelse($conversations as $conversation)
             <tr>
                 <td>{{ $conversation->id }}</td>
-                <td>{{ $conversation->level }}</td>
-                <td><a class="title" href="{{ route('conversation.edit', $conversation->id) }}">{{ $conversation->title }}</a></td>
-                <td>{{ $conversation->description }}</td>
-                <td>{{ isset($conversation->image) ? 'O' : 'X' }}</td>
+                <td><a class="name-selector" href="{{ route('conversation.edit', [$category_id, $conversation->id]) }}">{{ $conversation->name }}</a></td>
+                <td>{{ $conversation->korean1 }}<br>{{ $conversation->chinese_c1 }}<br>{{ $conversation->chinese_e1 }}</td>
+                <td>{{ isset($conversation->image1) && isset($conversation->image2) ? 'O' : 'X' }}</td>
+                <td>{{ isset($conversation->video1) && isset($conversation->video2) ? 'O' : 'X' }}</td>
                 <td><a class="delete" onclick="deleteConversation({{ $conversation->id }})">삭제</a></td>
-                <td class="submenu">서브메뉴</td>
             </tr>
         @empty
             <tr>
@@ -49,9 +47,9 @@
             if(confirm('글을 삭제합니다.')) {
                 $.ajax({
                     type: 'DELETE',
-                    url: 'conversation/' + id
+                    url: '{{ $category_id }}/' + id
                 }).then(function() {
-                    window.location.href = 'conversation';
+                    window.location.href = '/admin/conversation/' + '{{ $category_id }}'
                 })
             }
         }

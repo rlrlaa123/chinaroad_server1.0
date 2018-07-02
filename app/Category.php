@@ -13,8 +13,8 @@ class Category extends Model
         'description',
     ];
 
-    public function lists()
+    public function conversations()
     {
-        return $this->hasMany(Lists::class);
+        return $this->hasMany(Conversation::class);
     }
 }

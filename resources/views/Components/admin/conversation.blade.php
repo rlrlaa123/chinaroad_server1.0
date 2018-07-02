@@ -5,7 +5,9 @@
     <div class="sideuser">회화관리</div>
     <div class="sidesubmenu">
         <ul>
-            @if(preg_match('/\/admin\/conversation$/', $_SERVER['REQUEST_URI']))
+            @if(preg_match('/\/admin\/conversation$/', $_SERVER['REQUEST_URI']) or
+                preg_match('/\/admin\/conversation\/[0-9]+\/edit/', $_SERVER['REQUEST_URI']) or
+                preg_match('/\/admin\/conversation\/create/', $_SERVER['REQUEST_URI']))
                 <li class="selector {{ preg_match('/^\/admin\/conversation$/', $_SERVER['REQUEST_URI']) ||
                  preg_match('/^\/admin\/conversation\/.\/edit/', $_SERVER['REQUEST_URI']) ? 'active' : '' }}">
                     <a href="{{ url('admin/conversation/') }}">
@@ -17,15 +19,19 @@
                         회화 등록
                     </a>
                 </li>
-            @elseif(preg_match('/\/admin\/conversation\/[0-9]+/', $_SERVER['REQUEST_URI']))
+            @elseif(preg_match('/\/admin\/conversation\/[0-9]+$/', $_SERVER['REQUEST_URI']) or
+                    preg_match('/\/admin\/conversation\/[0-9]+\/[0-9]+\/edit/', $_SERVER['REQUEST_URI']) or
+                    preg_match('/\/admin\/conversation\/[0-9]+\/create/', $_SERVER['REQUEST_URI']))
+                @php( preg_match('/[0-9]+/', $_SERVER['REQUEST_URI'], $matches) )
                 <li class="selector {{ preg_match('/^\/admin\/conversation\/[0-9]+$/', $_SERVER['REQUEST_URI']) ||
-                 preg_match('/^\/admin\/conversation\/[0-9]+\/[0-9]+\/edit/', $_SERVER['REQUEST_URI']) ? 'active' : '' }}">
-                    <a href="/admin/conversation/{{ substr($_SERVER['REQUEST_URI'], 20, 1) }}">
+                                        preg_match('/^\/admin\/conversation\/[0-9]+\/[0-9]+\/edit/', $_SERVER['REQUEST_URI']) ? 'active' : '' }}">
+                    <a href="/admin/conversation/{{ $matches[0] }}">
                         회화 리스트
                     </a>
                 </li>
                 <li class="selector {{ preg_match('/\/admin\/conversation\/[0-9]+\/create/', $_SERVER['REQUEST_URI']) ? 'active' : '' }}">
-                    <a href="/admin/conversation/{{ substr($_SERVER['REQUEST_URI'], 20) }}/create">
+                    @php( preg_match('/[0-9]+/', $_SERVER['REQUEST_URI'], $matches) )
+                    <a href="/admin/conversation/{{ $matches[0] }}/create">
                         회화 등록
                     </a>
                 </li>

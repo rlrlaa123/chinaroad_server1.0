@@ -14,10 +14,9 @@ class ListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index($category_id)
     {
-        $lists = Lists::where('category_id', $id)->get();
-        $category_id = $id;
+        $lists = Lists::where('category_id', $category_id)->get();
 
         return view('List.index', compact('category_id', 'lists'));
     }
@@ -27,9 +26,8 @@ class ListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($category_id)
     {
-        $category_id = $id;
         return view('List.create', compact('category_id'));
     }
 
@@ -39,7 +37,7 @@ class ListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request, $category_id)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -72,13 +70,13 @@ class ListController extends Controller
         $list = new Lists;
 
         $list->name = $request->name;
-        $list->category_id = $id;
+        $list->category_id = $category_id;
         if($request->has('image')) {
             $list->image = 'images/lists/' . $list_name;
         }
         $list->save();
 
-        return redirect('admin/conversation/' . $id);
+        return redirect('admin/conversation/' . $category_id);
     }
 
     /**
@@ -98,9 +96,9 @@ class ListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($category_id, $id)
+    public function edit($category_id, $list_id)
     {
-        $list = Lists::find($id);
+        $list = Lists::find($list_id);
 
         return view('List.edit', compact('category_id', 'list'));
     }
@@ -112,7 +110,7 @@ class ListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $category_id, $id)
+    public function update(Request $request, $category_id, $list_id)
     {
         if ($request->hasFile('image')) {
             if (!file_exists('images')) {
@@ -121,7 +119,7 @@ class ListController extends Controller
                     File::makeDirectory('images/lists');
                 }
             }
-            $list = Lists::find($id);
+            $list = Lists::find($list_id);
 
             if($list->image != null) {
                 File::delete($list->image);
@@ -133,12 +131,12 @@ class ListController extends Controller
             $list->move($destinationPath_list, $list_name);
         }
 
-        Lists::where('id', $id)->update([
+        Lists::where('id', $list_id)->update([
             'name' => $request->name,
         ]);
 
         if($request->has('image')) {
-            Lists::where('id', $id)->update([
+            Lists::where('id', $list_id)->update([
                 'image' => 'images/lists/' . $list_name,
             ]);
         }
@@ -152,9 +150,9 @@ class ListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($category_id, $id)
+    public function destroy($category_id, $list_id)
     {
-        $list = Lists::find($id);
+        $list = Lists::find($list_id);
 
         File::delete($list->image);
 

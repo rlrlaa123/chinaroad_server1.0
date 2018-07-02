@@ -23,11 +23,11 @@
             <tr>
                 <td>{{ $category->id }}</td>
                 <td>{{ $category->level }}</td>
-                <td><a class="name" href="{{ route('category.edit', $category->id) }}">{{ $category->name }}</a></td>
+                <td><a class="name-selector" href="{{ route('category.edit', $category->id) }}">{{ $category->name }}</a></td>
                 <td>{{ $category->description }}</td>
-                <td>{{ isset($category->image) ? 'O' : 'X' }}</td>
+                <td><img src="/{{ $category->image }}" style="width: 100px;"></td>
                 <td><a class="delete" onclick="deleteConversation({{ $category->id }})">삭제</a></td>
-                <td class="submenu"><a href="{{ route('list.index', $category->id) }}">서브메뉴</a></td>
+                <td class="submenu"><a href="{{ route('conversation.index', $category->id) }}">서브메뉴</a></td>
             </tr>
         @empty
             <tr>

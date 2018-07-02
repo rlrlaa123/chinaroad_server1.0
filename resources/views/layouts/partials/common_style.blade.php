@@ -20,17 +20,22 @@
         font-size: 10px;
     }
 
+    tr td:nth-child(2) input[type="text"] {
+        width: 80%;
+        background-color: #f7f7f7;
+    }
+
     .help-block {
         color: red;
         margin-top: 5px;
     }
 
-    .name {
+    .name-selector {
         cursor: pointer;
         font-weight: bold;
     }
 
-    .name:hover {
+    .name-selector:hover {
         text-decoration: underline;
     }
 

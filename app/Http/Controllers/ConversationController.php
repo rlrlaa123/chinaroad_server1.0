@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Conversation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -14,11 +15,11 @@ class ConversationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($category_id)
     {
         $conversations = Conversation::all();
 
-        return view('Conversation.index', compact('conversations'));
+        return view('Conversation.index', compact('conversations', 'category_id'));
     }
 
     /**
@@ -26,9 +27,9 @@ class ConversationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($category_id)
     {
-        return view('Conversation.create');
+        return view('Conversation.create', compact('category_id'));
     }
 
     /**
@@ -37,12 +38,22 @@ class ConversationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $category_id)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'level' => 'required',
-            'image' => 'required',
+            'name' => 'required',
+            'korean1' => 'required',
+            'chinese_c1' => 'required',
+            'chinese_e1' => 'required',
+            'audio1' => 'required',
+            'korean2' => 'required',
+            'chinese_c2' => 'required',
+            'chinese_e2' => 'required',
+            'audio2' => 'required',
+            'image1' => 'required | file | image',
+            'image2' => 'required | file | image',
+            'video1' => 'required',
+            'video2' => 'required',
         ]);
 
         $validator->after(function () {
@@ -54,33 +65,128 @@ class ConversationController extends Controller
                 ->withInput();
         }
 
-        if ($request->hasFile('image')) {
-            if (!file_exists('images')) {
-                File::makeDirectory('images');
-                if(!file_exists('images/conversations')) {
-                    File::makeDirectory('images/conversations');
-                }
+        // conversation 폴더 있는지 확인 후 없으면 생성
+        if ($request->hasFile('images')) {
+            File::makeDirectory('images');
+            if (!file_exists('images/conversations')) {
+                File::makeDirectory('images/conversations');
             }
-
-            $conversation = $request->file('image');
-            $conversation_name = 'conversation' . time() . '.' . $conversation->getClientOriginalExtension();
-            $destinationPath_conversation = public_path('images/conversations/');
-            $conversation->move($destinationPath_conversation, $conversation_name);
         }
 
+        $time = time();
+        // 회화가 등록된 시간으로 (이미지, 음성, 비디오) 파일 저장 폴더 생성
+        File::makeDirectory('images/conversations/' . $time);
+        $path = 'images/conversations/' . $time;
+
+        // 회화 데이터
         $conversation = new Conversation;
 
-        $conversation->title = $request->title;
-        $conversation->level = $request->level;
-        if($request->has('description')) {
-            $conversation->description = $request->description;
+        $conversation->category_id = $category_id;
+        $conversation->name = $request->name;
+
+        $conversation->korean1 = $request->korean1;
+        $conversation->chinese_c1 = $request->chinese_c1;
+        $conversation->chinese_e1 = $request->chinese_e1;
+
+        $conversation->korean2 = $request->korean2;
+        $conversation->chinese_c2 = $request->chinese_c2;
+        $conversation->chinese_e2 = $request->chinese_e2;
+
+        // 필수 입력이 아닌 회화 데이터
+        for($i = 3; $i <= 10; $i++) {
+            if($request->has('korean' . $i)) {
+                $korean = 'korean' . $i;
+                $chinese_c = 'chinese_c' . $i;
+                $chinese_e = 'chinese_e' . $i;
+                $conversation->$korean = $request->$korean;
+                $conversation->$chinese_c = $request->$chinese_c;
+                $conversation->$chinese_e = $request->$chinese_e;
+            }
         }
-        if($request->has('image')) {
-            $conversation->image = 'images/conversations/' . $conversation_name;
+
+        // image1 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('image1')) {
+
+            $conversation_image = $request->file('image1');
+            $conversation_name = 'image1' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->image1 = $path . '/' . $conversation_name;
         }
+
+        // image2 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('image2')) {
+
+            $conversation_image = $request->file('image2');
+            $conversation_name = 'image2' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->image2 = $path . '/' . $conversation_name;
+        }
+
+        // audio1 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('audio1')) {
+
+            $conversation_image = $request->file('audio1');
+            $conversation_name = 'audio1' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->audio1 = $path . '/' . $conversation_name;
+        }
+
+        // audio2 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('audio2')) {
+
+            $conversation_image = $request->file('audio2');
+            $conversation_name = 'audio2' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->audio2 = $path . '/' . $conversation_name;
+        }
+
+        // 필수 입력이 아닌 오디오 데이터 입력 및 파일 저장
+        for($i = 3; $i <= 10; $i++) {
+            if ($request->has('audio' . $i)) {
+                $audio = 'audio' . $i;
+
+                $conversation_image = $request->file('audio' . $i);
+                $conversation_name = 'audio' . $i . '.' . $conversation_image->getClientOriginalExtension();
+                $destinationPath_conversation = public_path($path);
+                $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+                $conversation->$audio = $path . '/' . $conversation_name;
+            }
+        }
+
+        // video1 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('video1')) {
+
+            $conversation_image = $request->file('video1');
+            $conversation_name = 'video1' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->video1 = $path . '/' . $conversation_name;
+        }
+
+        // video2 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('video2')) {
+
+            $conversation_image = $request->file('video2');
+            $conversation_name = 'video2' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->video2 = $path . '/' . $conversation_name;
+        }
+
         $conversation->save();
 
-        return redirect('admin/conversation');
+        return redirect('admin/conversation/' . $category_id);
     }
 
     /**
@@ -100,11 +206,11 @@ class ConversationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($category_id, $id)
     {
         $conversation = Conversation::find($id);
 
-        return view('Conversation.edit', compact('conversation'));
+        return view('Conversation.edit', compact('conversation', 'category_id'));
     }
 
     /**
@@ -114,44 +220,166 @@ class ConversationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $category_id, $conversation_id)
     {
-        if ($request->hasFile('image')) {
-            if (!file_exists('images')) {
-                File::makeDirectory('images');
-                if(!file_exists('images/conversations')) {
-                    File::makeDirectory('images/conversations');
-                }
-            }
-            $conversation = Conversation::find($id);
-
-            if($conversation->image != null) {
-                File::delete($conversation->image);
-            }
-
-            $conversation = $request->file('image');
-            $conversation_name = 'conversation' . time() . '.' . $conversation->getClientOriginalExtension();
-            $destinationPath_conversation = public_path('images/conversations/');
-            $conversation->move($destinationPath_conversation, $conversation_name);
-        }
-
-        Conversation::where('id', $id)->update([
-            'title' => $request->title,
-            'level' => $request->level,
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'korean1' => 'required',
+            'chinese_c1' => 'required',
+            'chinese_e1' => 'required',
+            'korean2' => 'required',
+            'chinese_c2' => 'required',
+            'chinese_e2' => 'required',
         ]);
 
-        if($request->has('description')) {
-            Conversation::where('id', $id)->update([
-                'description' => $request->description,
-            ]);
-        }
-        if($request->has('image')) {
-            Conversation::where('id', $id)->update([
-                'image' => 'images/conversations/' . $conversation_name,
-            ]);
+        $validator->after(function () {
+        });
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
         }
 
-        return redirect('admin/conversation');
+        $conversation = Conversation::find($conversation_id);
+
+        $conversation->category_id = $category_id;
+        $conversation->name = $request->name;
+
+        $conversation->korean1 = $request->korean1;
+        $conversation->chinese_c1 = $request->chinese_c1;
+        $conversation->chinese_e1 = $request->chinese_e1;
+
+        $conversation->korean2 = $request->korean2;
+        $conversation->chinese_c2 = $request->chinese_c2;
+        $conversation->chinese_e2 = $request->chinese_e2;
+
+        // 필수 입력이 아닌 회화 데이터
+        for($i = 3; $i <= 10; $i++) {
+            if($request->has('korean' . $i)) {
+                $korean = 'korean' . $i;
+                $chinese_c = 'chinese_c' . $i;
+                $chinese_e = 'chinese_e' . $i;
+                $conversation->$korean = $request->$korean;
+                $conversation->$chinese_c = $request->$chinese_c;
+                $conversation->$chinese_e = $request->$chinese_e;
+            }
+        }
+
+        preg_match('/[0-9]+/', $conversation->image1, $matches);
+        $path = 'images/conversations/' . $matches[0];
+
+        // image1 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('image1')) {
+
+            if($conversation->image1 != null) {
+                File::delete($conversation->image1);
+            }
+
+            $conversation_image = $request->file('image1');
+            $conversation_name = 'image1' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->image1 = $path . '/' . $conversation_name;
+        }
+
+        // image2 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('image2')) {
+
+            if($conversation->image2 != null) {
+                File::delete($conversation->image2);
+            }
+
+            $conversation_image = $request->file('image2');
+            $conversation_name = 'image2' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->image2 = $path . '/' . $conversation_name;
+        }
+
+        // audio1 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('audio1')) {
+
+            if($conversation->audio1 != null) {
+                File::delete($conversation->audio1);
+            }
+
+            $conversation_image = $request->file('audio1');
+            $conversation_name = 'audio1' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->audio1 = $path . '/' . $conversation_name;
+        }
+
+        // audio2 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('audio2')) {
+
+            if($conversation->audio2 != null) {
+                File::delete($conversation->audio2);
+            }
+
+            $conversation_image = $request->file('audio2');
+            $conversation_name = 'audio2' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->audio2 = $path . '/' . $conversation_name;
+        }
+
+        // 필수 입력이 아닌 오디오 데이터 입력 및 파일 저장
+        for($i = 3; $i <= 10; $i++) {
+            if ($request->has('audio' . $i)) {
+                $audio = 'audio' . $i;
+
+                if($conversation->$audio != null) {
+                    File:delete($conversation->$audio);
+                }
+
+                $conversation_image = $request->file('audio' . $i);
+                $conversation_name = 'audio' . $i . '.' . $conversation_image->getClientOriginalExtension();
+                $destinationPath_conversation = public_path($path);
+                $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+                $conversation->$audio = $path . '/' . $conversation_name;
+            }
+        }
+
+        // video1 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('video1')) {
+
+            if($conversation->video1 != null) {
+                File::delete($conversation->video1);
+            }
+
+            $conversation_image = $request->file('video1');
+            $conversation_name = 'video1' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->video1 = $path . '/' . $conversation_name;
+        }
+
+        // video2 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('video2')) {
+
+            if($conversation->video2 != null) {
+                File::delete($conversation->video2);
+            }
+
+            $conversation_image = $request->file('video2');
+            $conversation_name = 'video2' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->video2 = $path . '/' . $conversation_name;
+        }
+
+        $conversation->save();
+
+        return redirect('admin/conversation/' . $category_id);
     }
 
     /**
@@ -160,11 +388,12 @@ class ConversationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($category_id, $conversation_id)
     {
-        $conversation = Conversation::find($id);
-
-        File::delete($conversation->image);
+        $conversation = Conversation::find($conversation_id);
+        preg_match('/[0-9]+/', $conversation->image1, $imageDirectory);
+//        return 'images/conversation/' . $imageDirectory[0];
+        File::deleteDirectory('images/conversations/' . $imageDirectory[0]);
 
         $conversation->delete();
 
