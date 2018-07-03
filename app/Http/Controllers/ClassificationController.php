@@ -123,6 +123,8 @@ class ClassificationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $classification = Classification::find($id);
+
+        $classification->delete();
     }
 }

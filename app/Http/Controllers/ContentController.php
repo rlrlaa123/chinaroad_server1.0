@@ -259,8 +259,11 @@ class ContentController extends Controller
 
         preg_match('/[0-9]+/', $content->image, $imageDirectory);
 //        return 'images/conversation/' . $imageDirectory[0];
-        File::deleteDirectory('images/conversations/' . $imageDirectory[0]);
+        File::deleteDirectory('images/contents/' . $imageDirectory[0]);
 
+        $content->delete();
+
+        return response('success', 200);
     }
 
     // 콘텐츠 리스트 페이지에서 '활성화' '비활성화' 변경 기능

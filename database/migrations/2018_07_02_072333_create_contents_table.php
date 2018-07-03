@@ -18,13 +18,13 @@ class CreateContentsTable extends Migration
             $table->integer('classification_id')->unsigned()->index();
             $table->boolean('activate');
             $table->string('level');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('title_ko');
-            $table->string('audio_ko');
-            $table->string('contents_ko');
+            $table->string('audio_ko')->nullable();
+            $table->mediumText('contents_ko');
             $table->string('title_ch');
-            $table->string('audio_ch');
-            $table->string('contents_ch');
+            $table->string('audio_ch')->nullable();
+            $table->mediumText('contents_ch');
             $table->timestamps();
 
             $table->foreign('classification_id')->references('id')->on('classifications')

@@ -23,7 +23,7 @@
                 <td>{{ $conversation->id }}</td>
                 <td><a class="name-selector" href="{{ route('conversation.edit', [$category_id, $conversation->id]) }}">{{ $conversation->name }}</a></td>
                 <td>{{ $conversation->korean1 }}<br>{{ $conversation->chinese_c1 }}<br>{{ $conversation->chinese_e1 }}</td>
-                <td>{{ isset($conversation->image1) && isset($conversation->image2) ? 'O' : 'X' }}</td>
+                <td>@if($conversation->image1 == null) x @else <img src="/{{ $conversation->image1 }}" style="width: 100px;"> @endif</td>
                 <td>{{ isset($conversation->video1) && isset($conversation->video2) ? 'O' : 'X' }}</td>
                 <td><a class="delete" onclick="deleteConversation({{ $conversation->id }})">삭제</a></td>
             </tr>

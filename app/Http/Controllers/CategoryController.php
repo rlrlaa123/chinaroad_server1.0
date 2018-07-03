@@ -152,7 +152,7 @@ class CategoryController extends Controller
             ]);
         }
 
-        return redirect('admin/category');
+        return redirect('admin/conversation');
     }
 
     /**

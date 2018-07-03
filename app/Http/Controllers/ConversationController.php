@@ -17,7 +17,7 @@ class ConversationController extends Controller
      */
     public function index($category_id)
     {
-        $conversations = Conversation::all();
+        $conversations = Conversation::where('category_id', $category_id)->get();
 
         return view('Conversation.index', compact('conversations', 'category_id'));
     }

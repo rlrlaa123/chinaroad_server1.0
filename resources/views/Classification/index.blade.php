@@ -44,7 +44,7 @@
             if(confirm('글을 삭제합니다.')) {
                 $.ajax({
                     type: 'DELETE',
-                    {{--                    url: '{{ $classification_id }}/' + id--}}
+                    url: 'classification/' + id
                 }).then(function() {
                     window.location.href = '/admin/classification/'
                 })

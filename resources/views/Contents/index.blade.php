@@ -15,21 +15,22 @@
         <thead>
         <tr>
             <th>일련번호</th>
-            <th>등록날짜</th>
             <th>카테고리</th>
             <th>난이도</th>
             <th>제목</th>
+            <th>이미지</th>
             <th><label for="activate">활성화여부</label></th>
+            <th>삭제</th>
         </tr>
         </thead>
         <tbody>
         @forelse($contents as $content)
             <tr>
                 <td>{{ $content->id }}</td>
-                <td>{{ $content->created_at }}</td>
                 <td>{{ $content->classification->name }}</td>
                 <td>{{ $content->level }}</td>
                 <td><a class="name-selector" href="{{ route('contents.edit', [$content->id]) }}">{{ $content->title_ko }}</a></td>
+                <td>@if($content->image == null) x @else <img src="/{{ $content->image }}" style="width: 100px;"> @endif</td>
                 <td>
                     <form id="activate-form" method="POST" action="{{ route('contents.activate') }}">
                         {!! csrf_field() !!}
@@ -41,8 +42,7 @@
                         <button type="submit" style="margin: 0 5px;">변경</button>
                     </form>
                 </td>
-                {{--<td><a class="name-selector" href="{{ route('contents.edit', [$content->id]) }}">{{ $content->name }}</a></td>--}}
-                {{--<td><a class="delete" onclick="deleteConversation({{ $content->id }})">삭제</a></td>--}}
+                <td><a class="delete" onclick="deleteConversation({{ $content->id }})">삭제</a></td>
             </tr>
         @empty
             <tr>
@@ -64,9 +64,9 @@
             if(confirm('글을 삭제합니다.')) {
                 $.ajax({
                     type: 'DELETE',
-{{--                    url: '{{ $classification_id }}/' + id--}}
-                }).then(function() {
-                    window.location.href = '/admin/content/'
+                    url: 'contents/' + id
+                }).then(function(res) {
+                    window.location.href = '/admin/contents'
                 })
             }
         }
