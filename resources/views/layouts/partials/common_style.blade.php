@@ -70,4 +70,8 @@
         text-decoration: none;
         color: black;
     }
+
+    .description {
+        width: 80%;
+    }
 </style>

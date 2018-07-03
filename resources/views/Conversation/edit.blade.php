@@ -15,7 +15,7 @@
     </style>
 @endsection
 @section('content')
-    <h3>※ 회화등록 -> {{ \App\Category::find($category_id)->name }}</h3>
+    <h3>※ 회화리스트 -> {{ \App\Category::find($category_id)->name }} -> 수정</h3>
     <hr>
     <form method="POST" action="{{ route('conversation.update', [$category_id, $conversation->id]) }}" enctype="multipart/form-data">
         {!! method_field('PUT') !!}

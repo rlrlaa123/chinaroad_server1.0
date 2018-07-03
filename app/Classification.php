@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Classification extends Model
 {
     protected $fillable = [
         'name',
     ];
 
-    public function conversations()
+    public function contents()
     {
-        return $this->hasMany(Conversation::class);
+        return $this->hasMany(Content::class);
     }
 }

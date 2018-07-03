@@ -42,6 +42,7 @@ Route::prefix('admin/conversation/{category_id}')->group(function() {
     Route::get('/{conversation_id}/edit', 'ConversationController@edit')->name('conversation.edit');
 });
 
-Route::resource('admin/sentence', 'SentenceController');
+Route::resource('admin/classification', 'ClassificationController');
 Route::resource('admin/contents', 'ContentController');
+Route::post('admin/contents/activate', 'ContentController@activateContents')->name('contents.activate');
 Route::resource('admin/edit', 'EditController');

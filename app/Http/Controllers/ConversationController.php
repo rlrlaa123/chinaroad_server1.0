@@ -73,8 +73,8 @@ class ConversationController extends Controller
             }
         }
 
-        $time = time();
         // 회화가 등록된 시간으로 (이미지, 음성, 비디오) 파일 저장 폴더 생성
+        $time = time();
         File::makeDirectory('images/conversations/' . $time);
         $path = 'images/conversations/' . $time;
 

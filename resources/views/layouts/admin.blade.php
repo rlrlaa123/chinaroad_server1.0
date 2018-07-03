@@ -46,7 +46,9 @@
              onclick="location.href='/admin/conversation';" style="-ms-grid-column: 7">
             회화
         </div>
-        <div class="grid-item  contents-selector {{ $_SERVER['REQUEST_URI'] === '/admin/contents' ? 'active' : '' }}"
+        <div class="grid-item  contents-selector {{ preg_match('/admin\/contents/', $_SERVER['REQUEST_URI']) ||
+        preg_match('/admin\/classification/', $_SERVER['REQUEST_URI'])
+        ? 'active' : '' }}"
              onclick="location.href='/admin/contents';" style="-ms-grid-column: 9">
             콘텐츠
         </div>
