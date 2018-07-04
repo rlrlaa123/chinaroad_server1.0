@@ -5,9 +5,11 @@ namespace App\Http\Controllers\API;
 use App\Conversation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\URL;
 
-class ConversationsController extends Controller
+class ConversationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -86,5 +88,31 @@ class ConversationsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function step1($category_id, $conversation_id)
+    {
+        $conversation = Conversation::find($conversation_id);
+
+        $conversation->image1 = URL::to('/') . '/' . $conversation->image1;
+        $conversation->image2 = URL::to('/') . '/' . $conversation->image2;
+        $conversation->video1 = URL::to('/') . '/' . $conversation->video1;
+        $conversation->video2 = URL::to('/') . '/' . $conversation->video2;
+
+        for($i = 1; $i <= 10; $i++) {
+            $conv = 'audio' . $i;
+            $conversation->$conv = URL::to('/') . '/' . $conversation->$conv;
+        }
+
+        return response($conversation);
+    }
+
+    public function step3($category_id, $conversation_id)
+    {
+        $conversation = DB::table('conversations')->select('video2')->where('id', $conversation_id)->first();
+
+        $conversation->video2 = URL::to('/') . '/' . $conversation->video2;
+
+        return response(json_encode($conversation));
     }
 }

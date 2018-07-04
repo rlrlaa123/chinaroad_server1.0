@@ -17,4 +17,29 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-//Route::resource('conversations', 'Api\ConversationsController');
+Route::resource('conversations', 'Api\ConversationController', [
+    'names' => [
+        'index' => '',
+        'store' => '',
+        'create' => '',
+        'update' => '',
+        'destroy' => '',
+        'edit' => '',
+        'show' => '',
+    ],
+]);
+
+Route::resource('categories', 'Api\CategoryController', [
+    'names' => [
+        'index' => '',
+        'store' => '',
+        'create' => '',
+        'update' => '',
+        'destroy' => '',
+        'edit' => '',
+        'show' => '',
+    ],
+]);
+
+Route::get('conversations/{category_id}/{conversation_id}/step1', 'API\ConversationController@step1');
+Route::get('conversations/{category_id}/{conversation_id}/step3', 'API\ConversationController@step3');

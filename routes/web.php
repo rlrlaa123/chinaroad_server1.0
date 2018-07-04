@@ -20,16 +20,16 @@ Route::resource('admin/user', 'UserController');
 Route::resource('admin/customer', 'CustomerController');
 Route::resource('admin/conversation', 'CategoryController', [
     'names' => [
-        'index' => 'category.index',
-        'store' => 'category.store',
-        'create' => 'category.create',
-        'update' => 'category.update',
-        'destroy' => 'category.destroy',
-        'edit' => 'category.edit',
-    ],
+    'index' => 'category.index',
+    'store' => 'category.store',
+    'create' => 'category.create',
+    'update' => 'category.update',
+    'destroy' => 'category.destroy',
+    'edit' => 'category.edit',
+],
     'except' => [
-        'show',
-    ]
+    'show',
+]
 ]);
 
 Route::prefix('admin/conversation/{category_id}')->group(function() {
