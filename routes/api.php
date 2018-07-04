@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::resource('conversations', 'Api\ConversationController', [
+Route::resource('conversations', 'API\ConversationController', [
     'names' => [
         'index' => '',
         'store' => '',
@@ -29,7 +29,7 @@ Route::resource('conversations', 'Api\ConversationController', [
     ],
 ]);
 
-Route::resource('categories', 'Api\CategoryController', [
+Route::resource('categories', 'API\CategoryController', [
     'names' => [
         'index' => '',
         'store' => '',
