@@ -43,3 +43,15 @@ Route::resource('categories', 'API\CategoryController', [
 
 Route::get('conversations/{category_id}/{conversation_id}/step1', 'API\ConversationController@step1');
 Route::get('conversations/{category_id}/{conversation_id}/step3', 'API\ConversationController@step3');
+
+Route::resource('contents', 'API\ContentController', [
+    'names' => [
+        'index' => '',
+        'store' => '',
+        'create' => '',
+        'update' => '',
+        'destroy' => '',
+        'edit' => '',
+        'show' => '',
+    ],
+]);
