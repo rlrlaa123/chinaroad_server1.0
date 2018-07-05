@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Category;
 use App\Content;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 
 class ContentController extends Controller
@@ -20,6 +22,7 @@ class ContentController extends Controller
 
         foreach($contents as $content) {
             $content->image = URL::to('/') . '/' . $content->image;
+            $content->category = $content->classification->name;
         }
 
         return response($contents);
@@ -54,7 +57,13 @@ class ContentController extends Controller
      */
     public function show($id)
     {
-        //
+//        $content = DB::table('contents')->select('id', 'title_ko', 'title_ch', 'contents_ko', 'contents_ch', 'image', 'classification_id')->where('id', $id)->first();
+//        return json_encode($content);
+        $content = Content::find($id);
+        $content->image = URL::to('/') . '/' . $content->image;
+//        $content->category = $content->classification->name;
+
+        return response($content);
     }
 
     /**
