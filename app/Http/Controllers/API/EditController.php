@@ -24,4 +24,9 @@ class EditController extends Controller
 
         return response($edits);
     }
+
+    public function sendReplay(Request $request)
+    {
+
+    }
 }
