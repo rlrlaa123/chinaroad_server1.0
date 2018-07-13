@@ -70,7 +70,7 @@
                 <td class="td-input">
                     <input id="image" name="image" type="file" accept='image/*' value="{{ old('image') }}">
                     <a class="image-name" href="/{{ $content->image }}">{{ substr($content->image, 27) }}</a>
-                @if ($errors->has('image'))
+                    @if ($errors->has('image'))
                         <div class="help-block">
                             {{ $errors->first('image') }}
                         </div>

@@ -55,3 +55,9 @@ Route::resource('contents', 'API\ContentController', [
         'show' => '',
     ],
 ]);
+
+Route::post('register', 'API\UserController@register');
+Route::post('snsregister', 'API\UserController@snsRegister');
+Route::get('checksnslogin/{email}', 'API\UserController@checkSNSLogin');
+
+Route::get('todayedits', 'API\EditController@todayEdits');

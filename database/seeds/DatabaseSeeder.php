@@ -16,10 +16,12 @@ class DatabaseSeeder extends Seeder
         DB::table('categories')->delete();
         DB::table('contents')->delete();
         DB::table('classifications')->delete();
+        DB::table('edits')->delete();
 
         $this->call(CategorySeeder::class);
         $this->call(ConversationSeeder::class);
         $this->call(ClassificationSeeder::class);
         $this->call(ContentsSeeder::class);
+        $this->call(EditSeeder::class);
     }
 }

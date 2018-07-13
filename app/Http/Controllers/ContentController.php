@@ -258,7 +258,7 @@ class ContentController extends Controller
         $content = Content::find($id);
 
         preg_match('/[0-9]+/', $content->image, $imageDirectory);
-//        return 'images/conversation/' . $imageDirectory[0];
+
         File::deleteDirectory('images/contents/' . $imageDirectory[0]);
 
         $content->delete();

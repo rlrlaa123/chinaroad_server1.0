@@ -52,7 +52,7 @@
              onclick="location.href='/admin/contents';" style="-ms-grid-column: 9">
             콘텐츠
         </div>
-        <div class="grid-item  edit-selector {{ $_SERVER['REQUEST_URI'] === '/admin/edit' ? 'active' : '' }}"
+        <div class="grid-item  edit-selector {{ preg_match('/admin\/edit/', $_SERVER['REQUEST_URI']) ? 'active' : '' }}"
              onclick="location.href='/admin/edit';" style="-ms-grid-column: 11">
             첨삭
         </div>
