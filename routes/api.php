@@ -61,3 +61,5 @@ Route::post('snsregister', 'API\UserController@snsRegister');
 Route::get('checksnslogin/{email}', 'API\UserController@checkSNSLogin');
 
 Route::get('todayedits', 'API\EditController@todayEdits');
+Route::post('sendReply', 'API\EditController@sendReply');
+Route::get('checkTodayConfirms/{user_id}', 'API\EditController@checkTodayConfirms');

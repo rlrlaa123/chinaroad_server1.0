@@ -15,17 +15,17 @@
                                             id="appname">{{ config('app.name','Laravel') }}</a></div>
         <div id="userdate" class="grid-item">| 김동현님 안녕하세요
             / {{ \Carbon\Carbon::now() }}</div>
-        {{--<div class="navbardiv grid-item">--}}
-            {{--<a href="{{ route('admin.logout') }}"--}}
-               {{--onclick="event.preventDefault();--}}
-                               {{--document.getElementById('logout-form').submit();">--}}
-                {{--Logout--}}
-            {{--</a>--}}
-            {{--<form id="logout-form" action="{{ route('admin.logout') }}" method="POST"--}}
-                  {{--style="display: none;">--}}
-                {{--{{ csrf_field() }}--}}
-            {{--</form>--}}
-        {{--</div>--}}
+        <div class="navbardiv grid-item">
+            <a href="{{ route('admin.logout') }}"
+               onclick="event.preventDefault();
+                               document.getElementById('logout-form').submit();">
+                Logout
+            </a>
+            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST"
+                  style="display: none;">
+                {{ csrf_field() }}
+            </form>
+        </div>
     </div>
     <div class="navsubbar">
         <div class="grid-item basicinfo-selector {{ $_SERVER['REQUEST_URI'] === '/admin/basic' ? 'active' : ''}}" style="-ms-grid-column: 1"
