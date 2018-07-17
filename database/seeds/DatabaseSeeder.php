@@ -17,11 +17,16 @@ class DatabaseSeeder extends Seeder
         DB::table('contents')->delete();
         DB::table('classifications')->delete();
         DB::table('edits')->delete();
+        DB::table('roles')->delete();
+        DB::table('admins')->delete();
+        DB::table('role_admin')->delete();
 
         $this->call(CategorySeeder::class);
         $this->call(ConversationSeeder::class);
         $this->call(ClassificationSeeder::class);
         $this->call(ContentsSeeder::class);
         $this->call(EditSeeder::class);
+        $this->call(RoleTableSeeder::class);
+        $this->call(AdminTableSeeder::class);
     }
 }
