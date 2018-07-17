@@ -23,7 +23,19 @@
                 <td>{{ $admin->id }}</td>
                 <td><a class="name-selector" href="{{ route('basic.edit', $admin->id) }}">{{ $admin->email }}</a></td>
                 <td>{{ $admin->name }}</td>
-                <td>{{ $admin->roles[0]->name }}</td>
+                <td>
+                    <form method="POST" action="{{ route('admin.authorize') }}">
+                        {!! csrf_field() !!}
+                        <select id="role" name="role">
+                            <option @if($admin->roles[0]->name == 'Admin') selected @endif value="Admin">관리자</option>
+                            <option @if($admin->roles[0]->name == 'Leader') selected @endif value="Leader">팀장</option>
+                            <option @if($admin->roles[0]->name == 'Teacher') selected @endif value="Teacher">선생님</option>
+                        </select>
+                        <input type="hidden" id="admin_id" name="admin_id" value="{{ $admin->id }}">
+                        <button type="submit"><label for="role">변경</label></button>
+                    </form>
+                    <input type="hidden" value="">
+                </td>
                 <td>{{ $admin->created_at }}</td>
                 <td><a class="delete" onclick="deleteConversation({{ $admin->id }})">삭제</a></td>
             </tr>

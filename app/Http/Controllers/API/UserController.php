@@ -16,7 +16,7 @@ class UserController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'name' => 'required',
             'gender' => 'required',
-            'type' => 'required',
+            'registered' => 'required',
         ]);
 
         $validator->after(function () {
@@ -32,7 +32,8 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->name = $request->name;
         $user->gender = $request->gender;
-        $user->type = $request->type;
+        $user->registered = $request->registered;
+        $user->type = 'Free';
 
         $user->save();
 
@@ -45,7 +46,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'name' => 'required',
             'gender' => 'required',
-            'type' => 'required',
+            'registered' => 'required',
         ]);
 
         $validator->after(function () {
@@ -60,7 +61,8 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->name = $request->name;
         $user->gender = $request->gender;
-        $user->type = $request->type;
+        $user->registered = $request->registered;
+        $user->type = 'Free';
 
         $user->save();
 

@@ -28,8 +28,11 @@
         </div>
     </div>
     <div class="navsubbar">
-        <div class="grid-item basicinfo-selector {{ $_SERVER['REQUEST_URI'] === '/admin/basic' ? 'active' : ''}}" style="-ms-grid-column: 1"
-            onclick="location.href='/admin/basic';">
+        <div class="grid-item basicinfo-selector {{ preg_match('/admin\/admin/', $_SERVER['REQUEST_URI']) ||
+                                                    preg_match('/admin\/leader/', $_SERVER['REQUEST_URI']) ||
+                                                    preg_match('/admin\/teacher/', $_SERVER['REQUEST_URI'])
+                                                    ? 'active' : ''}}" style="-ms-grid-column: 1"
+            onclick="location.href='/admin/admin';">
             기초정보
         </div>
         <div class="grid-item  user-selector {{ $_SERVER['REQUEST_URI'] === '/admin/user' ? 'active' : ''}}" style="-ms-grid-column: 3"

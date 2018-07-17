@@ -17,6 +17,7 @@ class AddGenderImageColumnsInUsersTable extends Migration
             $table->string('password')->nullable()->change();
             $table->string('gender');
             $table->string('image')->nullable();
+            $table->string('registered');
             $table->string('type');
         });
     }

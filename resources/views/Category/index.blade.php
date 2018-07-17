@@ -51,8 +51,7 @@
                     type: 'DELETE',
                     url: 'conversation/' + id
                 }).then(function(res) {
-                    console.log(res);
-                    // window.location.href = 'conversation';
+                    window.location.href = 'conversation';
                 })
             }
         }

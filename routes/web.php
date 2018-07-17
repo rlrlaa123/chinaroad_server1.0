@@ -12,7 +12,6 @@
 */
 
 Route::prefix('admin')->group(function() {
-    Route::get('/', 'AdminController@index')->name('admin.dashboard');
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::post('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
@@ -22,7 +21,13 @@ Route::get('/', function () {
     return redirect('admin/conversation/');
 });
 
+Route::get('/admin', function () {
+    return redirect('admin/conversation/');
+});
+
 Route::resource('admin/basic', 'BasicController');
+Route::resource('admin/admin', 'AdminController');
+Route::post('admin/authorize', 'AdminController@authorizeAdmin')->name('admin.authorize');
 Route::resource('admin/user', 'UserController');
 Route::resource('admin/customer', 'CustomerController');
 Route::resource('admin/conversation', 'CategoryController', [
