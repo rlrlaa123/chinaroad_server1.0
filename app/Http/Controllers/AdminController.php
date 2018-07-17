@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\Role;
 use Illuminate\Http\Request;
+use Validator;
 
 class AdminController extends Controller
 {
@@ -27,7 +28,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.create');
     }
 
     /**
@@ -38,7 +39,33 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'name' => 'required',
+        ]);
+
+        $validator->after(function () {
+        });
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $admin = new Admin;
+
+        $admin->email = $request->email;
+        $admin->password = bcrypt($request->password);
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+
+        $admin->save();
+
+        $admin->roles()->attach(Role::where('name', $request->role)->first());
+
+        return redirect('admin/admin');
     }
 
     /**

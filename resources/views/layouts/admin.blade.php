@@ -29,11 +29,10 @@
     </div>
     <div class="navsubbar">
         <div class="grid-item basicinfo-selector {{ preg_match('/admin\/admin/', $_SERVER['REQUEST_URI']) ||
-                                                    preg_match('/admin\/leader/', $_SERVER['REQUEST_URI']) ||
-                                                    preg_match('/admin\/teacher/', $_SERVER['REQUEST_URI'])
+                                                    preg_match('/admin\/admin\/create/', $_SERVER['REQUEST_URI'])
                                                     ? 'active' : ''}}" style="-ms-grid-column: 1"
             onclick="location.href='/admin/admin';">
-            기초정보
+            관리자
         </div>
         <div class="grid-item  user-selector {{ $_SERVER['REQUEST_URI'] === '/admin/user' ? 'active' : ''}}" style="-ms-grid-column: 3"
              onclick="location.href='/admin/user';">
