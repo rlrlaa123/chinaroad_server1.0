@@ -27,11 +27,13 @@ Route::get('/admin', function () {
 
 Route::resource('admin/basic', 'BasicController');
 Route::resource('admin/admin', 'AdminController');
-Route::resource('admin/leader', 'LeaderController');
-Route::post('admin/leader/assign', 'LeaderController@assignLeader')->name('leader.assign');
-Route::resource('admin/teacher', 'TeacherController');
 Route::post('admin/authorize', 'AdminController@authorizeAdmin')->name('admin.authorize');
 
+Route::resource('admin/leader', 'LeaderController');
+Route::post('admin/leader/assign', 'LeaderController@assignLeader')->name('leader.assign');
+
+Route::resource('admin/teacher', 'TeacherController');
+Route::post('admin/teacher/assign', 'TeacherController@assignTeacher')->name('teacher.assign');
 
 Route::resource('admin/user', 'UserController');
 Route::resource('admin/customer', 'CustomerController');

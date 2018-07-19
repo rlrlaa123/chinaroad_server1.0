@@ -70,4 +70,9 @@ class Admin extends Authenticatable
     {
         return $this->belongsTo(Admin::class);
     }
+
+    public function students()
+    {
+        return $this->hasMany(User::class);
+    }
 }

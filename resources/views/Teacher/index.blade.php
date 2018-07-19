@@ -1,48 +1,47 @@
 @extends('layouts.admin')
 @section('style')
     <style>
-        #activate-form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
     </style>
 @endsection
 @section('content')
-    <h3>※ 콘텐츠 리스트</h3>
+    <h3>※ 담당 선생님 리스트</h3>
     <hr>
     <table>
         <thead>
         <tr>
             <th>일련번호</th>
-            <th>카테고리</th>
-            <th>난이도</th>
-            <th>제목</th>
-            <th>이미지</th>
-            <th><label for="activate">활성화여부</label></th>
-            <th>삭제</th>
+            <th>학생 아이디(이메일)</th>
+            <th>학생 이름</th>
+            <th>담당 선생님</th>
+            <th>등록날짜</th>
         </tr>
         </thead>
         <tbody>
-        @forelse($teachers as $teacher)
+        @forelse($students as $student)
             <tr>
-                <td>{{ $teacher->id }}</td>
-                <td>{{ $teacher->classification->name }}</td>
-                <td>{{ $teacher->level }}</td>
-                <td><a class="name-selector" href="{{ route('contents.edit', [$teacher->id]) }}">{{ $teacher->title_ko }}</a></td>
-                <td>@if($teacher->image == null) x @else <img src="/{{ $teacher->image }}" style="width: 100px;"> @endif</td>
+                <td>{{ $student->id }}</td>
+                <td><a class="name-selector" href="{{ route('teacher.edit', $student->id) }}">{{ $student->email }}</a></td>
+                <td>{{ $student->name }}</td>
                 <td>
-                    <form id="activate-form" method="POST" action="{{ route('contents.activate') }}">
+                    <form method="POST" action="{{ route('teacher.assign') }}">
                         {!! csrf_field() !!}
-                        <select id="activate" name="activate" style="margin: 0 5px;">
-                            <option @if( $teacher->activate == 1) selected @endif value="1">활성화</option>
-                            <option @if( $teacher->activate == 0) selected @endif value="0">비활성화</option>
+                        <select id="role" name="role">
+                            <option>없음</option>
+                            @forelse($teachers as $teacher)
+                                <option @if($student->teacher == null)
+                                        @elseif($student->teacher->id == $teacher->id)
+                                            selected
+                                        @endif
+                                        value="{{ $teacher->id . ',' .$student->id }}">
+                                    {{ $teacher->name }}
+                                </option>
+                            @empty
+                            @endforelse
                         </select>
-                        <input type="hidden" name="content_id" value="{{ $teacher->id }}">
-                        <button type="submit" style="margin: 0 5px;">변경</button>
+                        <button type="submit"><label for="role">변경</label></button>
                     </form>
                 </td>
-                <td><a class="delete" onclick="deleteConversation({{ $teacher->id }})">삭제</a></td>
+                <td>{{ $student->created_at }}</td>
             </tr>
         @empty
             <tr>
@@ -64,9 +63,10 @@
             if(confirm('글을 삭제합니다.')) {
                 $.ajax({
                     type: 'DELETE',
-                    url: 'teacher/' + id
+                    url: 'leader/' + id
                 }).then(function(res) {
-                    window.location.href = '/admin/teacher'
+                    console.log(res);
+                    window.location.href = 'admin/leader';
                 })
             }
         }

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
@@ -13,7 +16,16 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        $students = User::orderBy('name')->get();
+
+        $teacher_roles = DB::table('admin_role')->where('role_id', 3)->get();
+
+        $teachers = [];
+        foreach ($teacher_roles as $teacher) {
+            array_push($teachers, Admin::find($teacher->admin_id));
+        }
+
+        return view('Teacher.index', compact('students', 'teachers'));
     }
 
     /**
@@ -80,5 +92,23 @@ class TeacherController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function assignTeacher(Request $request)
+    {
+        if ($request->role == '없음') {
+            return back();
+        }
+
+        $teacher_id = explode(',', $request->role)[0];
+        $student_id = explode(',', $request->role)[1];
+
+        $student = User::find($student_id);
+
+        $student->teacher_id = $teacher_id;
+
+        $student->save();
+
+        return redirect('admin/teacher');
     }
 }

@@ -110,7 +110,7 @@ class LeaderController extends Controller
         $teacher_id = explode(',', $request->role)[1];
 
         $teacher = Admin::find($teacher_id);
-//        return json_encode($teacher);
+
         $teacher->leader_id = $leader_id;
 
         $teacher->save();
