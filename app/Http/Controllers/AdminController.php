@@ -16,7 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin::all();
+        $admins = Admin::orderBy('name')->get();
 
         return view('Admin.index', compact('admins'));
     }
@@ -40,7 +40,7 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:admins',
             'password' => 'required|string|min:6|confirmed',
             'name' => 'required',
         ]);
@@ -87,7 +87,9 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        $admin = Admin::find($id);
+
+        return view('Admin.edit', compact('admin'));
     }
 
     /**
@@ -99,7 +101,38 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'email' => 'nullable|string|email|max:255|unique:admins',
+            'password' => 'nullable|string|min:6|confirmed',
+        ]);
+
+        $validator->after(function () {
+        });
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        if ($request->email != null) {
+            Admin::where('id', $id)->update([
+                'email' => $request->email,
+            ]);
+        }
+
+        if ($request->password != null) {
+            Admin::where('id', $id)->update([
+                'password' => bcrypt($request->password),
+            ]);
+        }
+        if ($request->name != null) {
+            Admin::where('id', $id)->update([
+                'name' => $request->name,
+            ]);
+        }
+
+        return redirect('admin/admin');
     }
 
     /**
@@ -113,8 +146,9 @@ class AdminController extends Controller
         //
     }
 
-    public function authorizeAdmin(Request $request)
+    public function authorizeAdmin(Request $request, $id)
     {
+//        return $request;
         $admin = Admin::find($request->admin_id);
 
         $admin->roles()->detach();

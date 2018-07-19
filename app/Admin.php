@@ -60,4 +60,14 @@ class Admin extends Authenticatable
     {
         return null !== $this->roles()->where('name', $role)->first();
     }
+
+    public function teachers()
+    {
+        return $this->hasMany(Admin::class);
+    }
+
+    public function leader()
+    {
+        return $this->belongsTo(Admin::class);
+    }
 }

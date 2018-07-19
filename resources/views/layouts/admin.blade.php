@@ -29,7 +29,9 @@
     </div>
     <div class="navsubbar">
         <div class="grid-item basicinfo-selector {{ preg_match('/admin\/admin/', $_SERVER['REQUEST_URI']) ||
-                                                    preg_match('/admin\/admin\/create/', $_SERVER['REQUEST_URI'])
+                                                    preg_match('/admin\/admin\/create/', $_SERVER['REQUEST_URI']) ||
+                                                    preg_match('/admin\/leader/', $_SERVER['REQUEST_URI']) ||
+                                                    preg_match('/admin\/teacher/', $_SERVER['REQUEST_URI'])
                                                     ? 'active' : ''}}" style="-ms-grid-column: 1"
             onclick="location.href='/admin/admin';">
             관리자
@@ -63,7 +65,7 @@
 
     <div class="navlayout">
         <div class="grid-item">
-            @component('Components.admin.basicinfo')
+            @component('Components.admin.admininfo')
             @endcomponent
             @component('Components.admin.edit')
             @endcomponent

@@ -21,7 +21,7 @@
         @forelse($admins as $admin)
             <tr>
                 <td>{{ $admin->id }}</td>
-                <td><a class="name-selector" href="{{ route('basic.edit', $admin->id) }}">{{ $admin->email }}</a></td>
+                <td><a class="name-selector" href="{{ route('admin.edit', $admin->id) }}">{{ $admin->email }}</a></td>
                 <td>{{ $admin->name }}</td>
                 <td>
                     <form method="POST" action="{{ route('admin.authorize') }}">
