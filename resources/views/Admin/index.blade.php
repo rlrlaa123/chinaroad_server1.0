@@ -34,7 +34,6 @@
                         <input type="hidden" id="admin_id" name="admin_id" value="{{ $admin->id }}">
                         <button type="submit"><label for="role">변경</label></button>
                     </form>
-                    <input type="hidden" value="">
                 </td>
                 <td>{{ $admin->created_at }}</td>
                 <td><a class="delete" onclick="deleteConversation({{ $admin->id }})">삭제</a></td>
@@ -59,10 +58,10 @@
             if(confirm('글을 삭제합니다.')) {
                 $.ajax({
                     type: 'DELETE',
-                    url: 'basic/' + id
+                    url: 'admin/' + id
                 }).then(function(res) {
                     console.log(res);
-                    window.location.href = 'basic';
+                    window.location.href = 'admin';
                 })
             }
         }

@@ -143,7 +143,12 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $admin = Admin::find($id);
+
+        $admin->roles()->detach();
+        $admin->delete();
+
+        return response('success', 200);
     }
 
     public function authorizeAdmin(Request $request, $id)
