@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +21,10 @@ class TeacherController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         $students = User::orderBy('name')->get();
 
         $teacher_roles = DB::table('admin_role')->where('role_id', 3)->get();

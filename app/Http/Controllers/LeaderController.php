@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class LeaderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +20,10 @@ class LeaderController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->hasAnyRole(['admin', 'leader'])) {
+            return view('layouts.401');
+        }
+
         $role_teachers = DB::table('admin_role')->where('role_id', 3)->get();
 
         $teachers = [];

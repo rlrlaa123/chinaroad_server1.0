@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Lists;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Validator;
 
@@ -21,6 +22,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         $categories = Category::all();
 
         return view('Category.index', compact('categories'));
@@ -33,6 +38,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         return view('Category.create');
     }
 
@@ -107,6 +116,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         $category = Category::find($id);
 
         return view('Category.edit', compact('category'));

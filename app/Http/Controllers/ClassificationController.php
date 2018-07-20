@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class ClassificationController extends Controller
@@ -19,6 +20,10 @@ class ClassificationController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         $classifications = Classification::all();
 
         return view('Classification.index', compact('classifications'));
@@ -31,6 +36,10 @@ class ClassificationController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         return view('Classification.create');
     }
 
@@ -83,6 +92,10 @@ class ClassificationController extends Controller
      */
     public function edit($id)
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         $classification = Classification::find($id);
 
         return view('Classification.edit', compact('classification'));

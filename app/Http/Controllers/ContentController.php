@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classification;
 use App\Content;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Validator;
 
@@ -21,6 +22,10 @@ class ContentController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         $contents = Content::all();
 
         return view('Contents.index', compact('contents'));
@@ -33,6 +38,10 @@ class ContentController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         $classifications = Classification::all();
 
         return view('Contents.create', compact('classifications'));
@@ -157,6 +166,10 @@ class ContentController extends Controller
      */
     public function edit($id)
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         $classifications = Classification::all();
         $content = Content::find($id);
 

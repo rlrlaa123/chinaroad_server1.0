@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Conversation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Validator;
 
@@ -21,6 +22,10 @@ class ConversationController extends Controller
      */
     public function index($category_id)
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         $conversations = Conversation::where('category_id', $category_id)->get();
 
         return view('Conversation.index', compact('conversations', 'category_id'));
@@ -33,6 +38,10 @@ class ConversationController extends Controller
      */
     public function create($category_id)
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         return view('Conversation.create', compact('category_id'));
     }
 
@@ -212,6 +221,10 @@ class ConversationController extends Controller
      */
     public function edit($category_id, $id)
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         $conversation = Conversation::find($id);
 
         return view('Conversation.edit', compact('conversation', 'category_id'));

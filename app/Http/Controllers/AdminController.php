@@ -5,17 +5,26 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         $admins = Admin::orderBy('name')->get();
 
         return view('Admin.index', compact('admins'));
@@ -28,6 +37,10 @@ class AdminController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         return view('Admin.create');
     }
 
@@ -87,6 +100,10 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return view('layouts.401');
+        }
+
         $admin = Admin::find($id);
 
         return view('Admin.edit', compact('admin'));
@@ -153,12 +170,16 @@ class AdminController extends Controller
 
     public function authorizeAdmin(Request $request, $id)
     {
-//        return $request;
         $admin = Admin::find($request->admin_id);
 
         $admin->roles()->detach();
         $admin->roles()->attach(Role::where('name', $request->role)->first());
 
         return redirect('admin/admin');
+    }
+
+    public function unauthorized()
+    {
+        return redirect('401');
     }
 }

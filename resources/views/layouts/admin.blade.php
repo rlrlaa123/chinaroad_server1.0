@@ -13,7 +13,7 @@
     <div class="navbar">
         <div class="navbardiv grid-item"><a href="{{ url('admin') }}"
                                             id="appname">{{ config('app.name','Laravel') }}</a></div>
-        <div id="userdate" class="grid-item">| 김동현님 안녕하세요
+        <div id="userdate" class="grid-item">| {{ \Illuminate\Support\Facades\Auth::user()->name }}님 안녕하세요
             / {{ \Carbon\Carbon::now() }}</div>
         <div class="navbardiv grid-item">
             <a href="{{ route('admin.logout') }}"
