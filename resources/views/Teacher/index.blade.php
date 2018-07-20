@@ -25,20 +25,21 @@
                 <td>
                     <form method="POST" action="{{ route('teacher.assign') }}">
                         {!! csrf_field() !!}
-                        <select id="role" name="role">
+                        <select id="teacher_id" name="teacher_id">
                             <option>없음</option>
                             @forelse($teachers as $teacher)
                                 <option @if($student->teacher == null)
                                         @elseif($student->teacher->id == $teacher->id)
                                             selected
                                         @endif
-                                        value="{{ $teacher->id . ',' .$student->id }}">
+                                        value="{{ $teacher->id }}">
                                     {{ $teacher->name }}
                                 </option>
                             @empty
                             @endforelse
                         </select>
-                        <button type="submit"><label for="role">변경</label></button>
+                        <input type="hidden" name="student_id" id="student_id" value="{{ $student->id }}">
+                        <button type="submit"><label for="teacher_id">변경</label></button>
                     </form>
                 </td>
                 <td>{{ $student->created_at }}</td>

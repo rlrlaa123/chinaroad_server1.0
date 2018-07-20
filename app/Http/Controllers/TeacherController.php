@@ -105,16 +105,14 @@ class TeacherController extends Controller
 
     public function assignTeacher(Request $request)
     {
-        if ($request->role == '없음') {
-            return back();
+//        return $request;
+        $student = User::find($request->student_id);
+
+        if ($request->teacher_id == '없음') {
+            $student->teacher_id = null;
+        } else {
+            $student->teacher_id = $request->teacher_id;
         }
-
-        $teacher_id = explode(',', $request->role)[0];
-        $student_id = explode(',', $request->role)[1];
-
-        $student = User::find($student_id);
-
-        $student->teacher_id = $teacher_id;
 
         $student->save();
 

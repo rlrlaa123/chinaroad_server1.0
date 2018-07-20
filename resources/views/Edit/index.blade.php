@@ -54,7 +54,8 @@
                     </a>
                 </td>
                 <td>
-                    @if($edit->image == null) x @else <img src="/{{ $edit->image }}" style="width: 100px;"> @endif</td>
+                    @if($edit->image == null) x @else <img src="/{{ $edit->image }}" @endif style="width: 100px;">
+                </td>
                 <td>
                     <div>[한국어]</div>
                     <div>{{ $edit->question_audio_ko === null ? 'x' : 'o' }} / {{ $edit->answer_audio_ko === null ? 'x' : 'o' }}</div>

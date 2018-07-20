@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Confirm;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ConfirmController extends Controller
 {
@@ -18,7 +20,16 @@ class ConfirmController extends Controller
      */
     public function index()
     {
-        $confirms = Confirm::all();
+        $users = User::where('teacher_id', Auth::user()->id)->get();
+
+        $confirms = [];
+
+        foreach ($users as $user) {
+            $items = Confirm::where('user_id', $user->id)->get();
+            foreach ($items as $item) {
+                array_push($confirms, $item);
+            }
+        }
 
         return view('Confirm.index', compact('confirms'));
     }
