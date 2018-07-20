@@ -12,7 +12,7 @@
             <th>일련번호</th>
             <th>선생님 아이디(이메일)</th>
             <th>선생님 이름</th>
-            <th>담당 팀장</th>
+            <th><label for="leader_id">담당 팀장</label></th>
             <th>등록날짜</th>
         </tr>
         </thead>
@@ -25,16 +25,21 @@
                 <td>
                     <form method="POST" action="{{ route('leader.assign') }}">
                         {!! csrf_field() !!}
-                        <select id="role" name="role">
+                        <select id="leader_id" name="leader_id">
                             <option>없음</option>
                             @forelse($leaders as $leader)
-                                <option @if($teacher->leader == null) @elseif($teacher->leader->id == $leader->id) selected @endif value="{{ $leader->id . ',' .$teacher->id }}">
+                                <option @if($teacher->leader == null)
+                                        @elseif($teacher->leader->id == $leader->id)
+                                            selected
+                                        @endif
+                                        value="{{ $leader->id }}">
                                     {{ $leader->name }}
                                 </option>
                             @empty
                             @endforelse
                         </select>
-                        <button type="submit"><label for="role">변경</label></button>
+                        <input type="hidden" name="teacher_id" id="teacher_id" value="{{ $teacher->id }}">
+                        <button type="submit">변경</button>
                     </form>
                 </td>
                 <td>{{ $teacher->created_at }}</td>

@@ -52,7 +52,8 @@ Route::resource('admin/conversation', 'CategoryController', [
     'show',
 ]
 ]);
-Route::resource('admin/confirm', 'ConfirmController');
+Route::get('admin/confirm', 'ConfirmController@index');
+Route::post('admin/confirm/teacher', 'ConfirmController@teacherConfirm')->name('confirm.teacher');
 
 Route::prefix('admin/conversation/{category_id}')->group(function() {
     Route::get('/', 'ConversationController@index')->name('conversation.index');

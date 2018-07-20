@@ -111,16 +111,15 @@ class LeaderController extends Controller
 
     public function assignLeader(Request $request)
     {
+        $teacher = Admin::find($request->teacher_id);
+
         if ($request->role == '없음') {
-            return back();
+            $teacher->leader_id = null;
+        } else {
+//            return $teacher;
+            $teacher->leader_id = $request->leader_id;
         }
 
-        $leader_id = explode(',', $request->role)[0];
-        $teacher_id = explode(',', $request->role)[1];
-
-        $teacher = Admin::find($teacher_id);
-
-        $teacher->leader_id = $leader_id;
 
         $teacher->save();
 

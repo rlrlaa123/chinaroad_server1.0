@@ -21,7 +21,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        if (!Auth::user()->hasRole('admin')) {
+        if (!Auth::user()->hasAnyRole(['admin', 'leader'])) {
             return view('layouts.401');
         }
 
@@ -105,7 +105,6 @@ class TeacherController extends Controller
 
     public function assignTeacher(Request $request)
     {
-//        return $request;
         $student = User::find($request->student_id);
 
         if ($request->teacher_id == '없음') {

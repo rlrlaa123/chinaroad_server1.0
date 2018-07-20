@@ -41,7 +41,7 @@
             <th>일련번호</th>
             <th>작성시간</th>
             <th>작성자</th>
-            <th>내용</th>
+            <th><label for="answer">내용</label></th>
             <th>첨삭여부</th>
         </tr>
         </thead>
@@ -72,10 +72,17 @@
                             <p>[한국어답변]</p>
                             <p></p>
                         </div>
+
                         <div class="textarea">
-                            <textarea rows="8" style="width: 100%;"></textarea>
-                            <button>승인완료</button>
-                            <button>저장하기</button>
+                            <form id="teacher_save" method="POST" action="{{ route('confirm.teacher') }}">
+                                {!! csrf_field() !!}
+                                <input type="hidden" id="confirm_id" name="confirm_id" value="{{ $confirm->id }}">
+                                <textarea rows="8" style="width: 100%;" id="answer" name="answer">{{ $confirm->answer }}</textarea>
+                                @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['leader', 'admin']))
+                                    <button>승인완료</button>
+                                @endif
+                                <button form="teacher_save">저장하기</button>
+                            </form>
                         </div>
                     </div>
                 </td>
