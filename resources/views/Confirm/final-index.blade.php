@@ -74,11 +74,11 @@
                         </div>
 
                         <div class="textarea">
-                            <form id="teacher_save" method="POST" action="{{ route('confirm.teacher') }}">
+                            <form id="leader_save" method="POST" action="{{ route('confirm.leader') }}">
                                 {!! csrf_field() !!}
                                 <input type="hidden" id="confirm_id" name="confirm_id" value="{{ $confirm->id }}">
                                 <textarea rows="8" style="width: 100%;" id="answer" name="answer">{{ $confirm->answer }}</textarea>
-                                <button form="teacher_save">저장하기</button>
+                                <button form="leader_save">승인완료</button>
                             </form>
                         </div>
                     </div>

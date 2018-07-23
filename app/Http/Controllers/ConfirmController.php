@@ -22,7 +22,7 @@ class ConfirmController extends Controller
     public function index()
     {
         if (Auth::user()->hasRole('admin')) {
-            $confirms = Confirm::all();
+            $confirms = Confirm::where('state', '첨삭대기')->get();
         }
 
          else if (Auth::user()->hasRole('leader')) {
@@ -41,7 +41,10 @@ class ConfirmController extends Controller
             $confirms = [];
 
             foreach ($students as $student) {
-                $items = Confirm::where('user_id', $student->id)->get();
+                $items = Confirm::where([
+                    ['user_id', '=', $student->id],
+                    ['state', '=', '첨삭대기']
+                ])->get();
 
                 foreach ($items as $item) {
                     array_push($confirms, $item);
@@ -55,7 +58,10 @@ class ConfirmController extends Controller
              $confirms = [];
 
              foreach ($users as $user) {
-                 $items = Confirm::where('user_id', $user->id)->get();
+                 $items = Confirm::where([
+                     ['user_id', '=', $user->id],
+                     ['state', '=', '첨삭대기']
+                 ])->get();
                  foreach ($items as $item) {
                      array_push($confirms, $item);
                  }
@@ -73,5 +79,59 @@ class ConfirmController extends Controller
         ]);
 
         return redirect('admin/confirm');
+    }
+
+    public function finalIndex()
+    {
+        if (Auth::user()->hasRole('admin')) {
+            $confirms = Confirm::where('state', '1차승인')
+                ->orWhere('state', '승인완료')->get();
+        }
+
+        else if (Auth::user()->hasRole('leader')) {
+            $teachers = Admin::where('leader_id', '=', Auth::user()->id)->get();
+
+            $students = [];
+
+            foreach ($teachers as $teacher) {
+                $items =  User::where('teacher_id', $teacher->id)->get();
+
+                foreach ($items as $item) {
+                    array_push($students, $item);
+                }
+            }
+
+            $confirms = [];
+
+            foreach ($students as $student) {
+                $items = Confirm::where([
+                    ['user_id', '=', $student->id],
+                    ['state', '=', '1차승인'],
+                ])->orWhere([
+                    ['user_id', '=', $student->id],
+                    ['state', '=', '승인완료']
+                ])->get();
+
+                foreach ($items as $item) {
+                    array_push($confirms, $item);
+                }
+            }
+        }
+
+        else {
+            $confirms = [];
+        }
+
+        return view('Confirm.final-index', compact('confirms'));
+    }
+
+    public function leaderConfirm(Request $request)
+    {
+        Confirm::where('id', $request->confirm_id)->update([
+            'state' => '승인완료',
+            'answer' => $request->answer,
+        ]);
+
+        return redirect('admin/confirm/final');
     }
 }
