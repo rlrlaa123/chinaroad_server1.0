@@ -127,6 +127,7 @@ class ConfirmController extends Controller
 
     public function leaderConfirm(Request $request)
     {
+//        return $request;
         Confirm::where('id', $request->confirm_id)->update([
             'state' => '승인완료',
             'answer' => $request->answer,

@@ -40,8 +40,12 @@
              onclick="location.href='/admin/user';">
             회원관리
         </div>
-        <div class="grid-item customer-selector {{ $_SERVER['REQUEST_URI'] === '/admin/customer' ? 'active' : '' }}"
-             onclick="location.href='/admin/customer';" style="-ms-grid-column: 5">
+        <div class="grid-item customer-selector {{ preg_match('/admin\/customer/', $_SERVER['REQUEST_URI']) ||
+                                                   preg_match('/admin\/faq/', $_SERVER['REQUEST_URI']) ||
+                                                   preg_match('/admin\/notice/', $_SERVER['REQUEST_URI']) ||
+                                                   preg_match('/admin\/inquiry/', $_SERVER['REQUEST_URI'])
+                                                   ? 'active' : '' }}"
+             onclick="location.href='/admin/notice';" style="-ms-grid-column: 5">
             고객센터
         </div>
         <div class="grid-item  conversation-selector {{ preg_match('/admin\/conversation/', $_SERVER['REQUEST_URI']) ||

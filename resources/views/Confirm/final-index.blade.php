@@ -39,7 +39,7 @@
         <thead>
         <tr>
             <th>일련번호</th>
-            <th>작성시간</th>
+            <th>작성날짜</th>
             <th>작성자</th>
             <th><label for="answer">내용</label></th>
             <th>첨삭여부</th>
@@ -49,7 +49,7 @@
         @forelse($confirms as $confirm)
             <tr>
                 <td>{{ $confirm->id }}</td>
-                <td>{{ $confirm->created_at }}</td>
+                <td>{{ $confirm->date }}</td>
                 <td>
                     {{ $confirm->user->email }}<br>
                     {{ $confirm->user->name }}
@@ -76,9 +76,9 @@
                         <div class="textarea">
                             <form id="leader_save" method="POST" action="{{ route('confirm.leader') }}">
                                 {!! csrf_field() !!}
-                                <input type="hidden" id="confirm_id" name="confirm_id" value="{{ $confirm->id }}">
+                                <input type="hidden" name="confirm_id" value="{{ $confirm->id }}">
                                 <textarea rows="8" style="width: 100%;" id="answer" name="answer">{{ $confirm->answer }}</textarea>
-                                <button form="leader_save">승인완료</button>
+                                <button type="submit">승인완료</button>
                             </form>
                         </div>
                     </div>

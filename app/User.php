@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Admin::class);
     }
+
+    public function inquires()
+    {
+        return $this->hasMany(Inquiry::class);
+    }
 }

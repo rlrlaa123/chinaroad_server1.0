@@ -39,7 +39,7 @@
         <thead>
         <tr>
             <th>일련번호</th>
-            <th>작성시간</th>
+            <th>작성날짜</th>
             <th>작성자</th>
             <th><label for="answer">내용</label></th>
             <th>첨삭여부</th>
@@ -49,7 +49,7 @@
         @forelse($confirms as $confirm)
             <tr>
                 <td>{{ $confirm->id }}</td>
-                <td>{{ $confirm->created_at }}</td>
+                <td>{{ $confirm->date }}</td>
                 <td>
                     {{ $confirm->user->email }}<br>
                     {{ $confirm->user->name }}

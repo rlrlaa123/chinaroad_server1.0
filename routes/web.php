@@ -71,3 +71,8 @@ Route::resource('admin/classification', 'ClassificationController');
 Route::resource('admin/contents', 'ContentController');
 Route::post('admin/contents/activate', 'ContentController@activateContents')->name('contents.activate');
 Route::resource('admin/edit', 'EditController');
+
+Route::resource('admin/notice', 'NoticeController');
+Route::resource('admin/faq', 'FAQController');
+Route::resource('admin/inquiry', 'InquiryController');
+Route::post('admin/inquiry/reply', 'InquiryController@reply')->name('inquiry.reply');

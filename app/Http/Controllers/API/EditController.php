@@ -35,6 +35,7 @@ class EditController extends Controller
         $confirm->user_id = User::where('email', $request->input('email'))->first()->id;
         $confirm->edit_id = $request->edit_id;
         $confirm->reply = $request->reply;
+        $confirm->date = $request->date;
         $confirm->state = '첨삭대기';
 
         $confirm->save();
