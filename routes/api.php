@@ -67,3 +67,5 @@ Route::get('confirm/{email}', 'API\ConfirmController@getConfirm');
 Route::get('confirm/{email}/{date}', 'API\ConfirmController@showConfirm');
 
 Route::get('notice', 'API\NoticeController@getNotice');
+Route::get('faq', 'API\FAQController@getFAQ');
+Route::get('inquiry/{email}', 'API\InquiryController@getInquiry');
