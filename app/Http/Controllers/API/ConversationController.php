@@ -109,7 +109,7 @@ class ConversationController extends Controller
 
     public function step3($category_id, $conversation_id)
     {
-        $conversation = DB::table('conversations')->select('video2')->where('id', $conversation_id)->first();
+        $conversation = DB::table('conversations')->select('video2', 'video3')->where('id', $conversation_id)->first();
 
         $conversation->video2 = URL::to('/') . '/' . $conversation->video2;
         $conversation->video3 = URL::to('/') . '/' . $conversation->video3;
