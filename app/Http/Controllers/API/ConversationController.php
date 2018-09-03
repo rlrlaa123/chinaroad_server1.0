@@ -112,6 +112,7 @@ class ConversationController extends Controller
         $conversation = DB::table('conversations')->select('video2')->where('id', $conversation_id)->first();
 
         $conversation->video2 = URL::to('/') . '/' . $conversation->video2;
+        $conversation->video3 = URL::to('/') . '/' . $conversation->video3;
 
         return response(json_encode($conversation));
     }
