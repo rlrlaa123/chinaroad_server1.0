@@ -490,7 +490,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video1">동영상 (step1)</label></td>
+                <td><label for="video1">동영상 (step1) - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video1" name="video1" type="file" value="{{ old('video1') }}">
                     @if ($errors->has('video1'))
@@ -501,12 +501,23 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video2">동영상 (step3)</label></td>
+                <td><label for="video2">동영상 (step3-1) - 소리 X, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video2" name="video2" type="file" value="{{ old('video2') }}">
                     @if ($errors->has('video2'))
                         <div class="help-block">
                             {{ $errors->first('video2') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video3">동영상 (step3-2) - 소리 X, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video3" name="video3" type="file" value="{{ old('video3') }}">
+                    @if ($errors->has('video3'))
+                        <div class="help-block">
+                            {{ $errors->first('video3') }}
                         </div>
                     @endif
                 </td>

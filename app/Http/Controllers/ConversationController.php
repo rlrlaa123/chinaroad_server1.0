@@ -67,6 +67,7 @@ class ConversationController extends Controller
             'image2' => 'required | file | image',
             'video1' => 'required',
             'video2' => 'required',
+            'video3' => 'required',
         ]);
 
         $validator->after(function () {
@@ -195,6 +196,17 @@ class ConversationController extends Controller
             $conversation_image->move($destinationPath_conversation, $conversation_name);
 
             $conversation->video2 = $path . '/' . $conversation_name;
+        }
+
+        // video3 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('video3')) {
+
+            $conversation_image = $request->file('video3');
+            $conversation_name = 'video3' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->video3 = $path . '/' . $conversation_name;
         }
 
         $conversation->save();
@@ -392,6 +404,21 @@ class ConversationController extends Controller
             $conversation_image->move($destinationPath_conversation, $conversation_name);
 
             $conversation->video2 = $path . '/' . $conversation_name;
+        }
+
+        // video3 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('video3')) {
+
+            if($conversation->video3 != null) {
+                File::delete($conversation->video3);
+            }
+
+            $conversation_image = $request->file('video3');
+            $conversation_name = 'video3' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->video3 = $path . '/' . $conversation_name;
         }
 
         $conversation->save();
