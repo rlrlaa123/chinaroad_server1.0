@@ -109,10 +109,29 @@ class ConversationController extends Controller
 
     public function step3($category_id, $conversation_id)
     {
-        $conversation = DB::table('conversations')->select('video2', 'video3')->where('id', $conversation_id)->first();
+        $conversation = DB::table('conversations')->select(
+            'video2',
+            'video3',
+            'video4',
+            'video5',
+            'video6',
+            'video7',
+            'video8',
+            'video9',
+            'video10',
+            'video11'
+        )->where('id', $conversation_id)->first();
 
         $conversation->video2 = URL::to('/') . '/' . $conversation->video2;
         $conversation->video3 = URL::to('/') . '/' . $conversation->video3;
+        $conversation->video4 = URL::to('/') . '/' . $conversation->video4;
+        $conversation->video5 = URL::to('/') . '/' . $conversation->video5;
+        $conversation->video6 = URL::to('/') . '/' . $conversation->video6;
+        $conversation->video7 = URL::to('/') . '/' . $conversation->video7;
+        $conversation->video8 = URL::to('/') . '/' . $conversation->video8;
+        $conversation->video9 = URL::to('/') . '/' . $conversation->video9;
+        $conversation->video10 = URL::to('/') . '/' . $conversation->video10;
+        $conversation->video11 = URL::to('/') . '/' . $conversation->video11;
 
         return response(json_encode($conversation));
     }
