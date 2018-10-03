@@ -15,6 +15,7 @@ class ConversationController extends Controller
     {
         $this->middleware('auth:admin');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -48,7 +49,7 @@ class ConversationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $category_id)
@@ -66,8 +67,6 @@ class ConversationController extends Controller
             'image1' => 'required | file | image',
             'image2' => 'required | file | image',
             'video1' => 'required',
-            'video2' => 'required',
-            'video3' => 'required',
         ]);
 
         $validator->after(function () {
@@ -107,8 +106,8 @@ class ConversationController extends Controller
         $conversation->chinese_e2 = $request->chinese_e2;
 
         // 필수 입력이 아닌 회화 데이터
-        for($i = 3; $i <= 10; $i++) {
-            if($request->has('korean' . $i)) {
+        for ($i = 3; $i <= 10; $i++) {
+            if ($request->has('korean' . $i)) {
                 $korean = 'korean' . $i;
                 $chinese_c = 'chinese_c' . $i;
                 $chinese_e = 'chinese_e' . $i;
@@ -163,7 +162,7 @@ class ConversationController extends Controller
         }
 
         // 필수 입력이 아닌 오디오 데이터 입력 및 파일 저장
-        for($i = 3; $i <= 10; $i++) {
+        for ($i = 3; $i <= 10; $i++) {
             if ($request->has('audio' . $i)) {
                 $audio = 'audio' . $i;
 
@@ -187,26 +186,18 @@ class ConversationController extends Controller
             $conversation->video1 = $path . '/' . $conversation_name;
         }
 
-        // video2 path 데이터 입력 및 파일 저장
-        if ($request->hasFile('video2')) {
+        // video2~11 path 데이터 입력 및 파일 저장
+        for ($i = 2; $i <= 11; $i++) {
+            if ($request->hasFile('video' . $i)) {
+                $video = 'video' . $i;
 
-            $conversation_image = $request->file('video2');
-            $conversation_name = 'video2' . '.' . $conversation_image->getClientOriginalExtension();
-            $destinationPath_conversation = public_path($path);
-            $conversation_image->move($destinationPath_conversation, $conversation_name);
+                $conversation_image = $request->file('video' . $i);
+                $conversation_name = $video . '.' . $conversation_image->getClientOriginalExtension();
+                $destinationPath_conversation = public_path($path);
+                $conversation_image->move($destinationPath_conversation, $conversation_name);
 
-            $conversation->video2 = $path . '/' . $conversation_name;
-        }
-
-        // video3 path 데이터 입력 및 파일 저장
-        if ($request->hasFile('video3')) {
-
-            $conversation_image = $request->file('video3');
-            $conversation_name = 'video3' . '.' . $conversation_image->getClientOriginalExtension();
-            $destinationPath_conversation = public_path($path);
-            $conversation_image->move($destinationPath_conversation, $conversation_name);
-
-            $conversation->video3 = $path . '/' . $conversation_name;
+                $conversation->$video = $path . '/' . $conversation_name;
+            }
         }
 
         $conversation->save();
@@ -217,7 +208,7 @@ class ConversationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -228,7 +219,7 @@ class ConversationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($category_id, $id)
@@ -245,8 +236,8 @@ class ConversationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $category_id, $conversation_id)
@@ -284,8 +275,8 @@ class ConversationController extends Controller
         $conversation->chinese_e2 = $request->chinese_e2;
 
         // 필수 입력이 아닌 회화 데이터
-        for($i = 3; $i <= 10; $i++) {
-            if($request->has('korean' . $i)) {
+        for ($i = 3; $i <= 10; $i++) {
+            if ($request->has('korean' . $i)) {
                 $korean = 'korean' . $i;
                 $chinese_c = 'chinese_c' . $i;
                 $chinese_e = 'chinese_e' . $i;
@@ -301,7 +292,7 @@ class ConversationController extends Controller
         // image1 path 데이터 입력 및 파일 저장
         if ($request->hasFile('image1')) {
 
-            if($conversation->image1 != null) {
+            if ($conversation->image1 != null) {
                 File::delete($conversation->image1);
             }
 
@@ -316,7 +307,7 @@ class ConversationController extends Controller
         // image2 path 데이터 입력 및 파일 저장
         if ($request->hasFile('image2')) {
 
-            if($conversation->image2 != null) {
+            if ($conversation->image2 != null) {
                 File::delete($conversation->image2);
             }
 
@@ -331,7 +322,7 @@ class ConversationController extends Controller
         // audio1 path 데이터 입력 및 파일 저장
         if ($request->hasFile('audio1')) {
 
-            if($conversation->audio1 != null) {
+            if ($conversation->audio1 != null) {
                 File::delete($conversation->audio1);
             }
 
@@ -346,7 +337,7 @@ class ConversationController extends Controller
         // audio2 path 데이터 입력 및 파일 저장
         if ($request->hasFile('audio2')) {
 
-            if($conversation->audio2 != null) {
+            if ($conversation->audio2 != null) {
                 File::delete($conversation->audio2);
             }
 
@@ -359,11 +350,11 @@ class ConversationController extends Controller
         }
 
         // 필수 입력이 아닌 오디오 데이터 입력 및 파일 저장
-        for($i = 3; $i <= 10; $i++) {
+        for ($i = 3; $i <= 10; $i++) {
             if ($request->has('audio' . $i)) {
                 $audio = 'audio' . $i;
 
-                if($conversation->$audio != null) {
+                if ($conversation->$audio != null) {
                     File:delete($conversation->$audio);
                 }
 
@@ -379,7 +370,7 @@ class ConversationController extends Controller
         // video1 path 데이터 입력 및 파일 저장
         if ($request->hasFile('video1')) {
 
-            if($conversation->video1 != null) {
+            if ($conversation->video1 != null) {
                 File::delete($conversation->video1);
             }
 
@@ -391,34 +382,22 @@ class ConversationController extends Controller
             $conversation->video1 = $path . '/' . $conversation_name;
         }
 
-        // video2 path 데이터 입력 및 파일 저장
-        if ($request->hasFile('video2')) {
+        // video2~11 path 데이터 입력 및 파일 저장
+        for ($i = 2; $i <= 11; $i++) {
+            if ($request->hasFile('video' . $i)) {
+                $video = 'video' . $i;
 
-            if($conversation->video2 != null) {
-                File::delete($conversation->video2);
+                if ($conversation->$video != null) {
+                    File::delete($conversation->$video);
+                }
+
+                $conversation_image = $request->file('video' . $i);
+                $conversation_name = $video . '.' . $conversation_image->getClientOriginalExtension();
+                $destinationPath_conversation = public_path($path);
+                $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+                $conversation->$video = $path . '/' . $conversation_name;
             }
-
-            $conversation_image = $request->file('video2');
-            $conversation_name = 'video2' . '.' . $conversation_image->getClientOriginalExtension();
-            $destinationPath_conversation = public_path($path);
-            $conversation_image->move($destinationPath_conversation, $conversation_name);
-
-            $conversation->video2 = $path . '/' . $conversation_name;
-        }
-
-        // video3 path 데이터 입력 및 파일 저장
-        if ($request->hasFile('video3')) {
-
-            if($conversation->video3 != null) {
-                File::delete($conversation->video3);
-            }
-
-            $conversation_image = $request->file('video3');
-            $conversation_name = 'video3' . '.' . $conversation_image->getClientOriginalExtension();
-            $destinationPath_conversation = public_path($path);
-            $conversation_image->move($destinationPath_conversation, $conversation_name);
-
-            $conversation->video3 = $path . '/' . $conversation_name;
         }
 
         $conversation->save();
@@ -429,7 +408,7 @@ class ConversationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($category_id, $conversation_id)

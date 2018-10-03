@@ -519,7 +519,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video2">동영상 (step3-1) - 소리 X, 자막 O</label></td>
+                <td><label for="video2">동영상 (step3-1) A파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video2" name="video2" type="file" value="{{ old('video2', $conversation->video2) }}">
                     <a class="image-name" href="/{{ $conversation->video2 }}">{{ substr($conversation->video2, 32) }}</a>
@@ -531,13 +531,110 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video3">동영상 (step3-1) - 소리 X, 자막 X</label></td>
+                <td><label for="video3">동영상 (step3-2) A파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video3" name="video3" type="file" value="{{ old('video3', $conversation->video3) }}">
                     <a class="image-name" href="/{{ $conversation->video3 }}">{{ substr($conversation->video3, 32) }}</a>
                     @if ($errors->has('video3'))
                         <div class="help-block">
                             {{ $errors->first('video3') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video4">동영상 (step3-3) A파트 - 소리 O, 자막 O</label></td>
+                <td class="td-input">
+                    <input id="video4" name="video4" type="file" value="{{ old('video4', $conversation->video4) }}">
+                    <a class="image-name" href="/{{ $conversation->video4 }}">{{ substr($conversation->video4, 32) }}</a>
+                    @if ($errors->has('video4'))
+                        <div class="help-block">
+                            {{ $errors->first('video4') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video5">동영상 (step3-4) A파트 - 소리 O, 자막 O</label></td>
+                <td class="td-input">
+                    <input id="video5" name="video5" type="file" value="{{ old('video5', $conversation->video5) }}">
+                    <a class="image-name" href="/{{ $conversation->video5 }}">{{ substr($conversation->video5, 32) }}</a>
+                    @if ($errors->has('video5'))
+                        <div class="help-block">
+                            {{ $errors->first('video5') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video6">동영상 (step3-5) A파트 - 소리 O, 자막 O</label></td>
+                <td class="td-input">
+                    <input id="video6" name="video6" type="file" value="{{ old('video6', $conversation->video6) }}">
+                    <a class="image-name" href="/{{ $conversation->video6 }}">{{ substr($conversation->video6, 32) }}</a>
+                    @if ($errors->has('video6'))
+                        <div class="help-block">
+                            {{ $errors->first('video6') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="video7">동영상 (step3-1) A파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video2" name="video7" type="file" value="{{ old('video7', $conversation->video7) }}">
+                    <a class="image-name" href="/{{ $conversation->video7 }}">{{ substr($conversation->video7, 32) }}</a>
+                    @if ($errors->has('video7'))
+                        <div class="help-block">
+                            {{ $errors->first('video7') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video8">동영상 (step3-2) A파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video8" name="video8" type="file" value="{{ old('video8', $conversation->video8) }}">
+                    <a class="image-name" href="/{{ $conversation->video8 }}">{{ substr($conversation->video8, 32) }}</a>
+                    @if ($errors->has('video8'))
+                        <div class="help-block">
+                            {{ $errors->first('video8') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video9">동영상 (step3-3) A파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video9" name="video9" type="file" value="{{ old('video9', $conversation->video9) }}">
+                    <a class="image-name" href="/{{ $conversation->video9 }}">{{ substr($conversation->video9, 32) }}</a>
+                    @if ($errors->has('video9'))
+                        <div class="help-block">
+                            {{ $errors->first('video9') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video10">동영상 (step3-4) A파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video10" name="video10" type="file" value="{{ old('video10', $conversation->video10) }}">
+                    <a class="image-name" href="/{{ $conversation->video10 }}">{{ substr($conversation->video10, 32) }}</a>
+                    @if ($errors->has('video10'))
+                        <div class="help-block">
+                            {{ $errors->first('video10') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video11">동영상 (step3-5) A파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video11" name="video11" type="file" value="{{ old('video11', $conversation->video11) }}">
+                    <a class="image-name" href="/{{ $conversation->video11 }}">{{ substr($conversation->video11, 32) }}</a>
+                    @if ($errors->has('video11'))
+                        <div class="help-block">
+                            {{ $errors->first('video11') }}
                         </div>
                     @endif
                 </td>
