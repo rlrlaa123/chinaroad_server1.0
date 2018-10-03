@@ -512,7 +512,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video3">동영상 (step3-2) A 파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video3">동영상 (step3-1) B 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video3" name="video3" type="file" value="{{ old('video3') }}">
                     @if ($errors->has('video3'))
@@ -523,7 +523,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video4">동영상 (step3-3) A파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video4">동영상 (step3-2) A파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video4" name="video4" type="file" value="{{ old('video4') }}">
                     @if ($errors->has('video4'))
@@ -534,7 +534,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video5">동영상 (step3-4) A 파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video5">동영상 (step3-2) B 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video5" name="video5" type="file" value="{{ old('video5') }}">
                     @if ($errors->has('video5'))
@@ -545,7 +545,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video6">동영상 (step3-5) A파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video6">동영상 (step3-3) A 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video6" name="video6" type="file" value="{{ old('video6') }}">
                     @if ($errors->has('video6'))
@@ -556,7 +556,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video7">동영상 (step3-1) A 파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video7">동영상 (step3-3) B 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video7" name="video7" type="file" value="{{ old('video7') }}">
                     @if ($errors->has('video7'))
@@ -567,7 +567,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video8">동영상 (step3-2) A파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video8">동영상 (step3-4) A파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video8" name="video8" type="file" value="{{ old('video8') }}">
                     @if ($errors->has('video8'))
@@ -578,7 +578,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video9">동영상 (step3-3) A 파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video9">동영상 (step3-4) B 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video9" name="video9" type="file" value="{{ old('video9') }}">
                     @if ($errors->has('video9'))
@@ -589,7 +589,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video10">동영상 (step3-4) A파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video10">동영상 (step3-5) A파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video10" name="video10" type="file" value="{{ old('video10') }}">
                     @if ($errors->has('video10'))
@@ -600,12 +600,124 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video11">동영상 (step3-5) A 파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video11">동영상 (step3-5) B 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video11" name="video11" type="file" value="{{ old('video11') }}">
                     @if ($errors->has('video11'))
                         <div class="help-block">
                             {{ $errors->first('video11') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><label for="video12">동영상 (step3-1) A파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video12" name="video12" type="file" value="{{ old('video12') }}">
+                    @if ($errors->has('video12'))
+                        <div class="help-block">
+                            {{ $errors->first('video12') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video13">동영상 (step3-1) B 파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video13" name="video13" type="file" value="{{ old('video13') }}">
+                    @if ($errors->has('video13'))
+                        <div class="help-block">
+                            {{ $errors->first('video13') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video14">동영상 (step3-2) A파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video14" name="video14" type="file" value="{{ old('video14') }}">
+                    @if ($errors->has('video14'))
+                        <div class="help-block">
+                            {{ $errors->first('video14') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video15">동영상 (step3-2) B 파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video15" name="video15" type="file" value="{{ old('video15') }}">
+                    @if ($errors->has('video15'))
+                        <div class="help-block">
+                            {{ $errors->first('video15') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video16">동영상 (step3-3) A 파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video16" name="video16" type="file" value="{{ old('video16') }}">
+                    @if ($errors->has('video16'))
+                        <div class="help-block">
+                            {{ $errors->first('video16') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video17">동영상 (step3-3) B 파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video17" name="video17" type="file" value="{{ old('video17') }}">
+                    @if ($errors->has('video17'))
+                        <div class="help-block">
+                            {{ $errors->first('video17') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video18">동영상 (step3-4) A파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video18" name="video18" type="file" value="{{ old('video18') }}">
+                    @if ($errors->has('video18'))
+                        <div class="help-block">
+                            {{ $errors->first('video18') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video19">동영상 (step3-4) B 파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video19" name="video19" type="file" value="{{ old('video19') }}">
+                    @if ($errors->has('video19'))
+                        <div class="help-block">
+                            {{ $errors->first('video19') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video20">동영상 (step3-5) A파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video20" name="video20" type="file" value="{{ old('video20') }}">
+                    @if ($errors->has('video20'))
+                        <div class="help-block">
+                            {{ $errors->first('video20') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="video21">동영상 (step3-5) B 파트 - 소리 O, 자막 X</label></td>
+                <td class="td-input">
+                    <input id="video21" name="video21" type="file" value="{{ old('video21') }}">
+                    @if ($errors->has('video21'))
+                        <div class="help-block">
+                            {{ $errors->first('video21') }}
                         </div>
                     @endif
                 </td>

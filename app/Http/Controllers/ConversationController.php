@@ -186,8 +186,8 @@ class ConversationController extends Controller
             $conversation->video1 = $path . '/' . $conversation_name;
         }
 
-        // video2~11 path 데이터 입력 및 파일 저장
-        for ($i = 2; $i <= 11; $i++) {
+        // video2~21 path 데이터 입력 및 파일 저장
+        for ($i = 2; $i <= 21; $i++) {
             if ($request->hasFile('video' . $i)) {
                 $video = 'video' . $i;
 
@@ -382,8 +382,8 @@ class ConversationController extends Controller
             $conversation->video1 = $path . '/' . $conversation_name;
         }
 
-        // video2~11 path 데이터 입력 및 파일 저장
-        for ($i = 2; $i <= 11; $i++) {
+        // video2~21 path 데이터 입력 및 파일 저장
+        for ($i = 2; $i <= 21; $i++) {
             if ($request->hasFile('video' . $i)) {
                 $video = 'video' . $i;
 
@@ -422,4 +422,6 @@ class ConversationController extends Controller
 
         return response('success', 200);
     }
+
+//    public function destroySingleVideo
 }

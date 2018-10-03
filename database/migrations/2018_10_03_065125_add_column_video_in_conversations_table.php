@@ -22,6 +22,16 @@ class AddColumnVideoInConversationsTable extends Migration
             $table->string('video9')->nullable();
             $table->string('video10')->nullable();
             $table->string('video11')->nullable();
+            $table->string('video12')->nullable();
+            $table->string('video13')->nullable();
+            $table->string('video14')->nullable();
+            $table->string('video15')->nullable();
+            $table->string('video16')->nullable();
+            $table->string('video17')->nullable();
+            $table->string('video18')->nullable();
+            $table->string('video19')->nullable();
+            $table->string('video20')->nullable();
+            $table->string('video21')->nullable();
 
         });
     }
@@ -42,6 +52,16 @@ class AddColumnVideoInConversationsTable extends Migration
             $table->dropColumn('video9');
             $table->dropColumn('video10');
             $table->dropColumn('video11');
+            $table->dropColumn('video12');
+            $table->dropColumn('video13');
+            $table->dropColumn('video14');
+            $table->dropColumn('video15');
+            $table->dropColumn('video16');
+            $table->dropColumn('video17');
+            $table->dropColumn('video18');
+            $table->dropColumn('video19');
+            $table->dropColumn('video20');
+            $table->dropColumn('video21');
         });
     }
 }
