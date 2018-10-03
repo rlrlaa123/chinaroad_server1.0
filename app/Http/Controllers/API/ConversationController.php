@@ -132,16 +132,16 @@ class ConversationController extends Controller
         $conversation->video9 = URL::to('/') . '/' . $conversation->video9;
         $conversation->video10 = URL::to('/') . '/' . $conversation->video10;
         $conversation->video11 = URL::to('/') . '/' . $conversation->video11;
-        $conversation->video2 = URL::to('/') . '/' . $conversation->video12;
-        $conversation->video3 = URL::to('/') . '/' . $conversation->video13;
-        $conversation->video4 = URL::to('/') . '/' . $conversation->video14;
-        $conversation->video5 = URL::to('/') . '/' . $conversation->video15;
-        $conversation->video6 = URL::to('/') . '/' . $conversation->video16;
-        $conversation->video7 = URL::to('/') . '/' . $conversation->video17;
-        $conversation->video8 = URL::to('/') . '/' . $conversation->video18;
-        $conversation->video9 = URL::to('/') . '/' . $conversation->video19;
-        $conversation->video10 = URL::to('/') . '/' . $conversation->video20;
-        $conversation->video11 = URL::to('/') . '/' . $conversation->video21;
+        $conversation->video12 = URL::to('/') . '/' . $conversation->video12;
+        $conversation->video13 = URL::to('/') . '/' . $conversation->video13;
+        $conversation->video14 = URL::to('/') . '/' . $conversation->video14;
+        $conversation->video15 = URL::to('/') . '/' . $conversation->video15;
+        $conversation->video16 = URL::to('/') . '/' . $conversation->video16;
+        $conversation->video17 = URL::to('/') . '/' . $conversation->video17;
+        $conversation->video18 = URL::to('/') . '/' . $conversation->video18;
+        $conversation->video19 = URL::to('/') . '/' . $conversation->video19;
+        $conversation->video20 = URL::to('/') . '/' . $conversation->video20;
+        $conversation->video21 = URL::to('/') . '/' . $conversation->video21;
 
         return response(json_encode($conversation));
     }
