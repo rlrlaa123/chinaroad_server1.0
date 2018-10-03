@@ -119,7 +119,17 @@ class ConversationController extends Controller
             'video8',
             'video9',
             'video10',
-            'video11'
+            'video11',
+            'video12',
+            'video13',
+            'video14',
+            'video15',
+            'video16',
+            'video17',
+            'video18',
+            'video19',
+            'video20',
+            'video21'
         )->where('id', $conversation_id)->first();
 
         $conversation->video2 = URL::to('/') . '/' . $conversation->video2;
