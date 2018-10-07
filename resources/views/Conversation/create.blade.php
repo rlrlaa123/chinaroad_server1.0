@@ -490,6 +490,28 @@
                 </td>
             </tr>
             <tr>
+                <td><label for="image3">회화사진 (step3 - A 파트)</label></td>
+                <td class="td-input">
+                    <input id="image3" name="image3" type="file" accept='image/*' value="{{ old('image3') }}">
+                    @if ($errors->has('image3'))
+                        <div class="help-block">
+                            {{ $errors->first('image3') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="image4">회화사진 (step3 - B 파트)</label></td>
+                <td class="td-input">
+                    <input id="image4" name="image4" type="file" accept='image/*' value="{{ old('image4') }}">
+                    @if ($errors->has('image4'))
+                        <div class="help-block">
+                            {{ $errors->first('image4') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
                 <td><label for="video1">동영상 (step1) - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video1" name="video1" type="file" value="{{ old('video1') }}">

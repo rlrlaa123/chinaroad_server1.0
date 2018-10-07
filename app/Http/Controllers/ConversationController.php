@@ -139,6 +139,28 @@ class ConversationController extends Controller
             $conversation->image2 = $path . '/' . $conversation_name;
         }
 
+        // image3 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('image3')) {
+
+            $conversation_image = $request->file('image3');
+            $conversation_name = 'image3' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->image3 = $path . '/' . $conversation_name;
+        }
+
+        // image4 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('image4')) {
+
+            $conversation_image = $request->file('image4');
+            $conversation_name = 'image4' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->image4 = $path . '/' . $conversation_name;
+        }
+
         // audio1 path 데이터 입력 및 파일 저장
         if ($request->hasFile('audio1')) {
 
@@ -317,6 +339,36 @@ class ConversationController extends Controller
             $conversation_image->move($destinationPath_conversation, $conversation_name);
 
             $conversation->image2 = $path . '/' . $conversation_name;
+        }
+
+        // image3 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('image3')) {
+
+            if ($conversation->image3 != null) {
+                File::delete($conversation->image3);
+            }
+
+            $conversation_image = $request->file('image3');
+            $conversation_name = 'image3' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->image3 = $path . '/' . $conversation_name;
+        }
+
+        // image4 path 데이터 입력 및 파일 저장
+        if ($request->hasFile('image4')) {
+
+            if ($conversation->image4 != null) {
+                File::delete($conversation->image4);
+            }
+
+            $conversation_image = $request->file('image4');
+            $conversation_name = 'image4' . '.' . $conversation_image->getClientOriginalExtension();
+            $destinationPath_conversation = public_path($path);
+            $conversation_image->move($destinationPath_conversation, $conversation_name);
+
+            $conversation->image4 = $path . '/' . $conversation_name;
         }
 
         // audio1 path 데이터 입력 및 파일 저장

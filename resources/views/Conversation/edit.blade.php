@@ -507,6 +507,30 @@
                 </td>
             </tr>
             <tr>
+                <td><label for="image3">회화사진 (step3 - A 파트)</label></td>
+                <td class="td-input">
+                    <input id="image3" name="image3" type="file" accept='image/*' value="{{ old('image3', $conversation->image3) }}">
+                    <a class="image-name" href="/{{ $conversation->image3 }}">{{ substr($conversation->image3, 32) }}</a>
+                    @if ($errors->has('image3'))
+                        <div class="help-block">
+                            {{ $errors->first('image3') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label for="image4">회화사진 (step3 - B 파트)</label></td>
+                <td class="td-input">
+                    <input id="image4" name="image4" type="file" accept='image/*' value="{{ old('image4', $conversation->image4) }}">
+                    <a class="image-name" href="/{{ $conversation->image4 }}">{{ substr($conversation->image4, 32) }}</a>
+                    @if ($errors->has('image4'))
+                        <div class="help-block">
+                            {{ $errors->first('image4') }}
+                        </div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
                 <td><label for="video1">동영상 (step1) - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video1" name="video1" type="file" value="{{ old('video1', $conversation->video1) }}">
@@ -519,7 +543,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video2">동영상 (step3-1) A파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video2">동영상 (step3-1) A 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video2" name="video2" type="file" value="{{ old('video2', $conversation->video2) }}">
                     <a class="image-name" href="/{{ $conversation->video2 }}">{{ substr($conversation->video2, 32) }}</a>
@@ -531,7 +555,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video3">동영상 (step3-1) B파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video3">동영상 (step3-1) B 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video3" name="video3" type="file" value="{{ old('video3', $conversation->video3) }}">
                     <a class="image-name" href="/{{ $conversation->video3 }}">{{ substr($conversation->video3, 32) }}</a>
@@ -543,7 +567,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video4">동영상 (step3-2) A파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video4">동영상 (step3-2) A 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video4" name="video4" type="file" value="{{ old('video4', $conversation->video4) }}">
                     <a class="image-name" href="/{{ $conversation->video4 }}">{{ substr($conversation->video4, 32) }}</a>
@@ -555,7 +579,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video5">동영상 (step3-2) B파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video5">동영상 (step3-2) B 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video5" name="video5" type="file" value="{{ old('video5', $conversation->video5) }}">
                     <a class="image-name" href="/{{ $conversation->video5 }}">{{ substr($conversation->video5, 32) }}</a>
@@ -567,7 +591,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video6">동영상 (step3-3) A파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video6">동영상 (step3-3) A 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video6" name="video6" type="file" value="{{ old('video6', $conversation->video6) }}">
                     <a class="image-name" href="/{{ $conversation->video6 }}">{{ substr($conversation->video6, 32) }}</a>
@@ -579,7 +603,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video2">동영상 (step3-3) B파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video2">동영상 (step3-3) B 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video7" name="video7" type="file" value="{{ old('video7', $conversation->video7) }}">
                     <a class="image-name" href="/{{ $conversation->video7 }}">{{ substr($conversation->video7, 32) }}</a>
@@ -591,7 +615,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video8">동영상 (step3-4) A파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video8">동영상 (step3-4) A 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video8" name="video8" type="file" value="{{ old('video8', $conversation->video8) }}">
                     <a class="image-name" href="/{{ $conversation->video8 }}">{{ substr($conversation->video8, 32) }}</a>
@@ -603,7 +627,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video9">동영상 (step3-4) B파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video9">동영상 (step3-4) B 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video9" name="video9" type="file" value="{{ old('video9', $conversation->video9) }}">
                     <a class="image-name" href="/{{ $conversation->video9 }}">{{ substr($conversation->video9, 32) }}</a>
@@ -615,7 +639,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video10">동영상 (step3-5) A파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video10">동영상 (step3-5) A 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video10" name="video10" type="file" value="{{ old('video10', $conversation->video10) }}">
                     <a class="image-name" href="/{{ $conversation->video10 }}">{{ substr($conversation->video10, 32) }}</a>
@@ -627,7 +651,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video11">동영상 (step3-5) B파트 - 소리 O, 자막 O</label></td>
+                <td><label for="video11">동영상 (step3-5) B 파트 - 소리 O, 자막 O</label></td>
                 <td class="td-input">
                     <input id="video11" name="video11" type="file" value="{{ old('video11', $conversation->video11) }}">
                     <a class="image-name" href="/{{ $conversation->video11 }}">{{ substr($conversation->video11, 32) }}</a>
@@ -640,7 +664,7 @@
             </tr>
 
             <tr>
-                <td><label for="video12">동영상 (step3-1) A파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video12">동영상 (step3-1) A 파트 - 소리 O, 자막 X</label></td>
                 <td class="td-input">
                     <input id="video12" name="video12" type="file" value="{{ old('video12', $conversation->video12) }}">
                     <a class="image-name" href="/{{ $conversation->video12 }}">{{ substr($conversation->video12, 32) }}</a>
@@ -652,7 +676,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video13">동영상 (step3-1) B파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video13">동영상 (step3-1) B 파트 - 소리 O, 자막 X</label></td>
                 <td class="td-input">
                     <input id="video13" name="video13" type="file" value="{{ old('video13', $conversation->video13) }}">
                     <a class="image-name" href="/{{ $conversation->video13 }}">{{ substr($conversation->video13, 32) }}</a>
@@ -664,7 +688,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video14">동영상 (step3-2) A파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video14">동영상 (step3-2) A 파트 - 소리 O, 자막 X</label></td>
                 <td class="td-input">
                     <input id="video14" name="video14" type="file" value="{{ old('video14', $conversation->video14) }}">
                     <a class="image-name" href="/{{ $conversation->video14 }}">{{ substr($conversation->video14, 32) }}</a>
@@ -676,7 +700,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video15">동영상 (step3-2) B파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video15">동영상 (step3-2) B 파트 - 소리 O, 자막 X</label></td>
                 <td class="td-input">
                     <input id="video15" name="video15" type="file" value="{{ old('video15', $conversation->video15) }}">
                     <a class="image-name" href="/{{ $conversation->video15 }}">{{ substr($conversation->video15, 32) }}</a>
@@ -688,7 +712,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video16">동영상 (step3-3) A파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video16">동영상 (step3-3) A 파트 - 소리 O, 자막 X</label></td>
                 <td class="td-input">
                     <input id="video16" name="video16" type="file" value="{{ old('video16', $conversation->video16) }}">
                     <a class="image-name" href="/{{ $conversation->video16 }}">{{ substr($conversation->video16, 32) }}</a>
@@ -700,7 +724,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video17">동영상 (step3-3) B파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video17">동영상 (step3-3) B 파트 - 소리 O, 자막 X</label></td>
                 <td class="td-input">
                     <input id="video17" name="video17" type="file" value="{{ old('video17', $conversation->video17) }}">
                     <a class="image-name" href="/{{ $conversation->video17 }}">{{ substr($conversation->video17, 32) }}</a>
@@ -712,7 +736,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video18">동영상 (step3-4) A파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video18">동영상 (step3-4) A 파트 - 소리 O, 자막 X</label></td>
                 <td class="td-input">
                     <input id="video18" name="video18" type="file" value="{{ old('video18', $conversation->video18) }}">
                     <a class="image-name" href="/{{ $conversation->video18 }}">{{ substr($conversation->video18, 32) }}</a>
@@ -724,7 +748,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video19">동영상 (step3-4) B파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video19">동영상 (step3-4) B 파트 - 소리 O, 자막 X</label></td>
                 <td class="td-input">
                     <input id="video19" name="video19" type="file" value="{{ old('video19', $conversation->video19) }}">
                     <a class="image-name" href="/{{ $conversation->video19 }}">{{ substr($conversation->video19, 32) }}</a>
@@ -736,7 +760,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video20">동영상 (step3-5) A파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video20">동영상 (step3-5) A 파트 - 소리 O, 자막 X</label></td>
                 <td class="td-input">
                     <input id="video20" name="video20" type="file" value="{{ old('video20', $conversation->video20) }}">
                     <a class="image-name" href="/{{ $conversation->video20 }}">{{ substr($conversation->video20, 32) }}</a>
@@ -748,7 +772,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="video21">동영상 (step3-5) B파트 - 소리 O, 자막 X</label></td>
+                <td><label for="video21">동영상 (step3-5) B 파트 - 소리 O, 자막 X</label></td>
                 <td class="td-input">
                     <input id="video21" name="video21" type="file" value="{{ old('video21', $conversation->video21) }}">
                     <a class="image-name" href="/{{ $conversation->video21 }}">{{ substr($conversation->video21, 32) }}</a>
