@@ -129,7 +129,9 @@ class ConversationController extends Controller
             'video18',
             'video19',
             'video20',
-            'video21'
+            'video21',
+            'image3',
+            'image4'
         )->where('id', $conversation_id)->first();
 
         $count = 0;
@@ -141,6 +143,9 @@ class ConversationController extends Controller
                 $count += 1;
             }
         }
+
+        $conversation->image3 = URL::to('/') . '/' . $conversation->image3;
+        $conversation->image4 = URL::to('/') . '/' . $conversation->image4;
 
         $conversation->videoCount = $count / 2;
 
