@@ -35,7 +35,7 @@ class ConversationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,7 +48,7 @@ class ConversationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -59,7 +59,7 @@ class ConversationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -70,8 +70,8 @@ class ConversationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -82,7 +82,7 @@ class ConversationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -99,7 +99,7 @@ class ConversationController extends Controller
         $conversation->video1 = URL::to('/') . '/' . $conversation->video1;
         $conversation->video2 = URL::to('/') . '/' . $conversation->video2;
 
-        for($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $conv = 'audio' . $i;
             $conversation->$conv = URL::to('/') . '/' . $conversation->$conv;
         }
@@ -132,12 +132,17 @@ class ConversationController extends Controller
             'video21'
         )->where('id', $conversation_id)->first();
 
+        $count = 0;
+
         for ($i = 2; $i < 21; $i++) {
             $video = 'video' . $i;
             if ($conversation->$video) {
                 $conversation->$video = URL::to('/') . '/' . $conversation->$video;
+                $count += 1;
             }
         }
+
+        $conversation->videoCount = $count / 2;
 
         return response(json_encode($conversation));
     }
