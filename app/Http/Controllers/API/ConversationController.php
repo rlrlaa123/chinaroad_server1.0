@@ -110,6 +110,18 @@ class ConversationController extends Controller
     public function step3($category_id, $conversation_id)
     {
         $conversation = DB::table('conversations')->select(
+            'image3',
+            'image4',
+            'audio1',
+            'audio2',
+            'audio3',
+            'audio4',
+            'audio5',
+            'audio6',
+            'audio7',
+            'audio8',
+            'audio9',
+            'audio10',
             'video2',
             'video3',
             'video4',
@@ -129,9 +141,7 @@ class ConversationController extends Controller
             'video18',
             'video19',
             'video20',
-            'video21',
-            'image3',
-            'image4'
+            'video21'
         )->where('id', $conversation_id)->first();
 
         $count = 0;
@@ -142,6 +152,11 @@ class ConversationController extends Controller
                 $conversation->$video = URL::to('/') . '/' . $conversation->$video;
                 $count += 1;
             }
+        }
+
+        for ($i = 1; $i <= 10; $i++) {
+            $audio = 'audio' . $i;
+            $conversation->$audio = URL::to('/') . '/' . $conversation->$audio;
         }
 
         $conversation->image3 = URL::to('/') . '/' . $conversation->image3;
