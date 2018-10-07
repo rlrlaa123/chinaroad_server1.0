@@ -156,7 +156,9 @@ class ConversationController extends Controller
 
         for ($i = 1; $i <= 10; $i++) {
             $audio = 'audio' . $i;
-            $conversation->$audio = URL::to('/') . '/' . $conversation->$audio;
+            if ($conversation->$audio) {
+                $conversation->$audio = URL::to('/') . '/' . $conversation->$audio;
+            }
         }
 
         $conversation->image3 = URL::to('/') . '/' . $conversation->image3;
